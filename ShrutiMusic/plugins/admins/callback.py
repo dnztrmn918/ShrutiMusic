@@ -79,20 +79,19 @@ async def show_help_page1(client, callback_query: CallbackQuery):
 async def fork_repo_callback(client, query):
     await query.message.edit_text(
         text=(
-            "✨ <b>ʙᴜɪʟᴅ Yᴏᴜʀ Oᴡɴ ᴍᴜsɪᴄ ʙᴏᴛ 🎧</b>\n\n"
-            "🚀 ʀᴇᴀᴅʏ ᴛᴏ ʟᴀᴜɴᴄʜ ʏᴏᴜʀ ᴏᴡɴ ʙᴏᴛ?\n"
-            "ғᴏʀᴋ ᴛʜᴇ ʀᴇᴘᴏ ᴀɴᴅ ᴅᴇᴘʟᴏʏ ɪɴ sᴇᴄᴏɴᴅs.\n\n"
-            "🔧 <b>Cᴜsᴛᴏᴍɪᴢᴇ ɪᴛ. Dᴇᴘʟᴏʏ ɪᴛ. Vɪʙᴇ ᴡɪᴛʜ ɪᴛ 🔥</b>"
+            "✨ <b>Bᴏᴛ ɪʟɢɪʟɪ sᴏʀᴜɴ ᴍᴜ ʏᴀşɪʏᴏʀsᴜɴ?</b>\n"
+            "🚩 <b>ʏᴀʀᴅɪᴍ ᴀʟᴍᴀᴋ ᴠᴇ ᴅᴇsᴛᴇᴋ ɪçɪɴ ᴀşağɪᴅᴀᴋɪ ʏᴇᴛᴋɪʟɪ ʙᴜᴛᴏɴʟᴀʀı ᴋᴜʟʟᴀɴᴀʙɪʟɪʀsɪɴ.</b>\n"
+            "📩 <bʟ>ʟüᴛғᴇɴ sᴏʀᴜɴᴜɴ ᴅᴇᴛᴀʏʟᴀʀɪɴı ʙᴇʟɪʀᴛ, ᴇɴ ᴋısᴀ sᴜʀᴅᴇ ᴅöɴüʟᴇᴄᴇɢɪᴢ.</b>"
         ),
         disable_web_page_preview=True,
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🚀 Fᴏʀᴋ Rᴇᴘᴏ", url="https://github.com/NoxxOP/ShrutiMusic/fork"),
-                    InlineKeyboardButton("⚡ Hᴇʀᴏᴋᴜ Dᴇᴘʟᴏʏ", url="https://dashboard.heroku.com/new?template=https://github.com/NoxxOP/ShrutiMusic")
+                    InlineKeyboardButton("🚀 Yapımcı", url="https://t.me/dnztrmnn"),
+                    InlineKeyboardButton("⚡ Yönetici", url="https://t.me/")
                 ],
                 [
-                    InlineKeyboardButton("🔙 Bᴀᴄᴋ", callback_data="settingsback_helper")
+                    InlineKeyboardButton("🔙 Geri", callback_data="settingsback_helper")
                 ]
             ]
         )
@@ -385,10 +384,10 @@ async def del_back_playlist(client, CallbackQuery, _):
     elif command == "Skip" or command == "Replay":
         check = db.get(chat_id)
         if not check:
-            return await CallbackQuery.answer("No music in queue!", show_alert=True)
+            return await CallbackQuery.answer("ᴋᴜʏʀᴜᴋ ʙᴏꜱ!", show_alert=True)
         
         if command == "Skip":
-            txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➻ ʏᴀʏɪɴ ɢᴇçɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
             popped = None
             try:
                 popped = check.pop(0)
@@ -396,7 +395,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
                 if not check:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➻ ʏᴀʏɪɴ ɢᴇçɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -411,7 +410,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 try:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➻ ʏᴀʏɪɴ ɢᴇçɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -423,7 +422,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     return
         else:
-            txt = f"➻ sᴛʀᴇᴀᴍ ʀᴇ-ᴘʟᴀʏᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➻ sᴛʀᴇᴀᴍ ᴛᴇᴋʀᴀʀ ᴏʏɴᴀᴛɪʟᴅɪ 🎄\n│ \n└ʙʏ : {mention} 🥀"
         
         await CallbackQuery.answer()
         
