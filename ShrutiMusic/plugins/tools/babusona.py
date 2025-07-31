@@ -3,6 +3,10 @@ import random
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+# Burada kendi bot token'ınızı ayarlayın veya config dosyasından çekin
+# Örnek: app = Client("my_bot", bot_token="TOKENINIZ")
+app = Client("my_bot")
+
 DOKUNDURMA_MESAJLARI = [
     "Yine mi karıştın işlere, {mention}? Beyin nerede kayıp acaba? 🤔",
     "Akıl fukaralığı sınırları zorluyorsun {mention}, Nobel de bekliyoruz! 😂",
@@ -98,6 +102,9 @@ async def dokundur_group(client: Client, message: Message):
             await reply_msg.delete()
         except Exception:
             pass
+
+if __name__ == "__main__":
+    app.run()
 
 __MODULE__ = "Dokundurma"
 __HELP__ = """
