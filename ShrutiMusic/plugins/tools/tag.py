@@ -316,3 +316,4 @@ Notlar:
 3. Kullanıcılar profillerine bağlantılı rastgele emojilerle etiketlenecektir
 4. İşlem tamamlandığında, size özet ve sayılar gösterilecektir
 5. Her seferde 5 kullanıcı etiketlenir ve her grup için benzersiz emoji dizisi kullanılır
+"""
