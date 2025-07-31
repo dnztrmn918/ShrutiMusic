@@ -45,7 +45,7 @@ BROADCAST_ALLOWED_IDS = [7574330905, 1786683163, 7674874652, 7282752816]
 IS_BROADCASTING = False
 
 
-@app.on_message(filters.command("broadcast") & (filters.user(BROADCAST_ALLOWED_IDS) | SUDOERS))
+@app.on_message(filters.command("broadcast", "reklam") & (filters.user(BROADCAST_ALLOWED_IDS) | SUDOERS))
 @language
 async def braodcast_message(client, message, _):
     global IS_BROADCASTING
