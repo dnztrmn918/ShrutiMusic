@@ -33,7 +33,7 @@ async def video_downloader(_, message: Message):
 
     video_url = message.text.split(None, 1)[1]
 
-    msg = await message.reply("🔍 Fetching video...")
+    msg = await message.reply("🔍 Video hazırlanıyor...")
 
     # Step 1: Call API
     payload = {
@@ -51,14 +51,14 @@ async def video_downloader(_, message: Message):
         data = r.json()
 
         if "medias" not in data or not data["medias"]:
-            return await msg.edit("❌ No downloadable video found.")
+            return await msg.edit("❌ İndirilebilir video bulunamadı")
 
         # Step 2: Get best quality video URL
         best_video = sorted(data["medias"], key=lambda x: x.get("quality", ""), reverse=True)[0]
         video_link = best_video["url"]
 
         # Step 3: Download the video to temp file
-        await msg.edit("⬇️ Downloading video...")
+        await msg.edit("⬇️ Video indiriliyor...")
 
         file_name = "video.mp4"
         with requests.get(video_link, stream=True) as v:
@@ -70,7 +70,7 @@ async def video_downloader(_, message: Message):
         await app.send_video(
             chat_id=message.chat.id,
             video=file_name,
-            caption=f"🎬 {data.get('title', 'Video')}\n\n✅ By @ShrutiBots",
+            caption=f"🎬 {data.get('title', 'Video')}\n\n✅ By @TubidyMusic",
             supports_streaming=True
         )
 
