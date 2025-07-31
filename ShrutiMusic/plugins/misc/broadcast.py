@@ -40,9 +40,9 @@ from ShrutiMusic.utils.formatters import alpha_to_int
 from config import adminlist
 
 # Add specific user IDs that can use the broadcast command
-BROADCAST_ALLOWED_IDS = [7574330905, 1786683163, 7674874652, 7282752816]
+BROADCAST_ALLOWED_IDS = [6289700114, 7426116391]
 
-IS_BROADCASTING = False
+IS_BROADCASTING = True
 
 
 @app.on_message(filters.command("broadcast", "reklam") & (filters.user(BROADCAST_ALLOWED_IDS) | SUDOERS))
