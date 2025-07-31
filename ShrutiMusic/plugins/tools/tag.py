@@ -158,17 +158,17 @@ async def process_members(chat_id, members, text=None, replied=None):
 async def tag_all_users(_, message):
     admin = await is_admin(message.chat.id, message.from_user.id)
     if not admin:
-        return await message.reply_text("Only admins can use this command.")
+        return await message.reply_text("Bu komutu yalnızca yöneticiler kullanabilir.")
 
     if message.chat.id in SPAM_CHATS:  
         return await message.reply_text(  
-            "Tagging process is already running. Use /cancel to stop it."  
+            "Etiketleme işlemi zaten çalışıyor. Durdurmak için /cancel komutunu kullan."  
         )  
     
     replied = message.reply_to_message  
     if len(message.command) < 2 and not replied:  
         return await message.reply_text(  
-            "Give some text to tag all, like: `@all Hi Friends`"  
+            "Herkesi etiketlemek için bir metin girin, örneğin: @all Merhaba arkadaşlar"  
         )  
     
     try:  
@@ -192,10 +192,10 @@ async def tag_all_users(_, message):
         )
         
         summary_msg = f"""
-✅ Tagging completed!
+Etiketleme tamamlandı ✅
 
-Total members: {total_members}
-Tagged members: {tagged_members}
+Toplam üyeler: {total_members}
+Etiketlenen üyeler: {tagged_members}
 """
         await app.send_message(message.chat.id, summary_msg)
 
@@ -218,17 +218,17 @@ async def tag_all_admins(_, message):
 
     admin = await is_admin(message.chat.id, message.from_user.id)  
     if not admin:  
-        return await message.reply_text("Only admins can use this command.")  
+        return await message.reply_text("Bu komutu yalnızca yöneticiler kullanabilir.")  
 
     if message.chat.id in SPAM_CHATS:  
         return await message.reply_text(  
-            "Tagging process is already running. Use /cancel to stop it."  
+            "Etiketleme işlemi zaten çalışıyor. Durdurmak için /cancel komutunu kullan."  
         )  
     
     replied = message.reply_to_message  
     if len(message.command) < 2 and not replied:  
         return await message.reply_text(  
-            "Give some text to tag admins, like: `@admins Hi Friends`"  
+            "Yöneticileri etiketlemek için bir metin girin, örneğin: @admins Merhaba Arkadaşlar"  
         )  
     
     try:  
@@ -254,10 +254,10 @@ async def tag_all_admins(_, message):
         )
         
         summary_msg = f"""
-✅ Admin tagging completed!
+✅ Yönetici etiketleme işlemi başarıyla tamamlandı!
 
-Total admins: {total_admins}
-Tagged admins: {tagged_admins}
+Toplam yöneticiler: {total_admins}
+Etiketlenen yöneticiler: {tagged_admins}
 """
         await app.send_message(message.chat.id, summary_msg)
 
@@ -301,17 +301,18 @@ async def cancelcmd(_, message):
 
 MODULE = "Tᴀɢᴀʟʟ"
 HELP = """
-@all or /all | /tagall or @tagall | /mentionall or @mentionall [text] or [reply to any message] - Tag all users in your group with random emojis (changes every 5 users)
+@all veya /all | /tagall veya @tagall | /mentionall veya @mentionall [metin] veya [herhangi bir mesaja yanıt]
+- Grubunuzdaki tüm kullanıcıları rastgele emojilerle etiketler (her 5 kullanıcıda emoji değişir)
 
-/admintag or @admintag | /adminmention or @adminmention | /admins or @admins [text] or [reply to any message] - Tag all admins in your group with random emojis (changes every 5 users)
+ /admintag veya @admintag | /adminmention veya @adminmention | /admins veya @admins [metin] veya [herhangi bir mesaja yanıt]
+- Grubunuzdaki tüm yöneticileri rastgele emojilerle etiketler (her 5 kullanıcıda emoji değişir)
 
-/stopmention or @stopmention | /cancel or @cancel | /offmention or @offmention | /mentionoff or @mentionoff | /cancelall or @cancelall - Stop any running tagging process
+ /stopmention veya @stopmention | /cancel veya @cancel | /offmention veya @offmention | /mentionoff veya @mentionoff | /cancelall veya @cancelall
+- Çalışan herhangi bir etiketleme işlemini durdurur
 
-Note:
-
-1. These commands can only be used by admins
-2. The bot and assistant must be admins in your group
-3. Users will be tagged with random emojis that link to their profiles
-4. After completion, you'll get a summary with counts
-5. Tags 5 users at a time with unique emoji sequence for each batch
-"""
+Notlar:
+1. Bu komutları sadece yöneticiler kullanabilir
+2. Bot ve yardımcı botunuz grubunuzda yönetici olmalıdır
+3. Kullanıcılar profillerine bağlantılı rastgele emojilerle etiketlenecektir
+4. İşlem tamamlandığında, size özet ve sayılar gösterilecektir
+5. Her seferde 5 kullanıcı etiketlenir ve her grup için benzersiz emoji dizisi kullanılır
