@@ -127,7 +127,7 @@ async def greet_group(_, member: ChatMemberUpdated):
             caption=f"""
 🌸✨ ──────────────────── ✨🌸
 
-         🎊 <b>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴏᴜʀ ғᴀᴍɪʟʏ</b> 🎊
+         🎊 <b>ᴀɪʟᴇᴍɪᴢᴇ ʜᴏşɢᴇʟᴅɪɴɪᴢ</b> 🎊
 
 🌹 <b>ɴᴀᴍᴇ</b> ➤ {user.mention}
 🌺 <b>ᴜsᴇʀɴᴀᴍᴇ</b> ➤ @{user.username if user.username else "ɴᴏᴛ sᴇᴛ"}
@@ -136,17 +136,18 @@ async def greet_group(_, member: ChatMemberUpdated):
 
 ═════════════════════════
 
-💕 <b>ᴡᴇ'ʀᴇ sᴏ ʜᴀᴘᴘʏ ᴛᴏ ʜᴀᴠᴇ ʏᴏᴜ ʜᴇʀᴇ!</b> 
-🎵 <b>ᴇɴᴊᴏʏ ᴛʜᴇ ʙᴇsᴛ ᴍᴜsɪᴄ ᴇxᴘᴇʀɪᴇɴᴄᴇ</b> 🎵
+💕 <b>ʙᴜʟᴜɴᴅᴜğᴜɴᴜᴢ ɪçɪɴ ᴄᴏᴋ ᴍᴜᴊɪᴋᴜʀᴜᴍᴜʏᴜᴢ!</b> 
+🎵 <b>ᴇɴ ɢüᴢᴇʟ ᴍüᴢɪᴋ ᴅᴇɴᴇʏɪᴍɪɴɪ ʏᴀşᴀʏɪɴ</b> 🎵
 
-✨ <b>ғᴇᴇʟ ғʀᴇᴇ ᴛᴏ sʜᴀʀᴇ ᴀɴᴅ ᴇɴᴊᴏʏ!</b> ✨
+✨ <b>ᴘᴀʜᴀʟᴀɴᴅıɴɪᴢı ᴏʀᴛᴀᴋʟᴀşᴛɪʀɪɴ ᴠᴇ ᴋᴇɴᴅɪɴɪᴢɪ ᴍᴜsɪᴋ ᴅᴇɴᴇʏɪᴍɪɴᴇ ʙıʀᴀᴋɪɴ!</b> ✨
 
-<blockquote><b>💝 ᴘᴏᴡᴇʀᴇᴅ ʙʏ ➤ <a href="https://t.me/{app.username}?start=help">Mᴜsɪᴄ ʙᴏᴛs🎶💖</a></b></blockquote>
+<blockquote><b>💝 ᴛᴀʀᴀғɪɴᴅᴀɴ ᴅᴇsᴛᴇᴋʟᴇɴɪʏᴏʀ ➤ <a href="https://t.me/{app.username}?start=help">Mᴜsɪᴄ ʙᴏᴛs🎶💖</a></b></blockquote>
 
 🌸✨ ──────────────────── ✨🌸
+
 """,
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("🎵 ᴀᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ 🎵", url=f"https://t.me/{app.username}?startgroup=True")]
+                [InlineKeyboardButton("🎵 Beni Gruba Ekle 🎵", url=f"https://t.me/{app.username}?startgroup=True")]
             ]),
         )
 
