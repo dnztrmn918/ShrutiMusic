@@ -88,7 +88,7 @@ async def fork_repo_callback(client, query):
             [
                 [
                     InlineKeyboardButton("🚀 Yapımcı", url="https://t.me/dnztrmnn"),
-                    InlineKeyboardButton("⚡ Yönetici", url="https://t.me/")
+                    InlineKeyboardButton("⚡ Yönetici", url="https://t.me/cevatbey")
                 ],
                 [
                     InlineKeyboardButton("🔙 Geri", callback_data="settingsback_helper")
