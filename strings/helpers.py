@@ -20,335 +20,335 @@
 # Email: badboy809075@gmail.com
 
 
-HELP_1 = """<b><u>ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs :</b></u>
+HELP_1 = """<b><u>ᴀᴅᴍɪɴ ᴋᴏᴍᴜᴛʟᴀʀɪ :</b></u>
 
-ᴊᴜsᴛ ᴀᴅᴅ <b>ᴄ</b> ɪɴ ᴛʜᴇ sᴛᴀʀᴛɪɴɢ ᴏғ ᴛʜᴇ ᴄᴏᴍᴍᴀɴᴅs ᴛᴏ ᴜsᴇ ᴛʜᴇᴍ ғᴏʀ ᴄʜᴀɴɴᴇʟ.
+ᴋᴏᴍᴜᴛʟᴀʀɪ ᴋᴀɴᴀʟʟᴀʀ ɪçɪɴ ᴋᴜʟʟᴀɴᴍᴀᴋ ɪsᴛᴇʀsᴇɴɪᴢ, ᴋᴏᴍᴜᴛʟᴀʀɪɴ ʙᴀşɪɴᴀ <b>ᴄ</b> ᴇᴋʟᴇʏɪɴ.
 
 
-/pause : ᴩᴀᴜsᴇ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴩʟᴀʏɪɴɢ sᴛʀᴇᴀᴍ.
+/pause : ᴍᴇᴠᴄᴜᴛ ᴏʏɴᴀᴛɪʟᴀɴ ʏᴀʏɪɴɪ ᴅᴜʀᴀᴋʟᴀᴛɪʀ.
 
-/resume : ʀᴇsᴜᴍᴇ ᴛʜᴇ ᴩᴀᴜsᴇᴅ sᴛʀᴇᴀᴍ.
+/resume : ᴅᴜʀᴅᴜʀᴜʟᴀɴ ʏᴀʏɪɴɪ ᴅᴇᴠᴀᴍ ᴇᴛᴛɪʀɪʀ.
 
-/skip : sᴋɪᴩ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴩʟᴀʏɪɴɢ sᴛʀᴇᴀᴍ ᴀɴᴅ sᴛᴀʀᴛ sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ɴᴇxᴛ ᴛʀᴀᴄᴋ ɪɴ ǫᴜᴇᴜᴇ.
+/skip : ᴍᴇᴠᴄᴜᴛ ʏᴀʏɪɴɪ ᴀᴛʟᴀʀ ᴠᴇ sɪʀᴀᴅᴀᴋɪ ᴘᴀʀçᴀʏɪ ᴏʏɴᴀᴛᴍᴀʏᴀ ʙᴀşʟᴀʀ.
 
-/end ᴏʀ /stop : ᴄʟᴇᴀʀs ᴛʜᴇ ǫᴜᴇᴜᴇ ᴀɴᴅ ᴇɴᴅ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴩʟᴀʏɪɴɢ sᴛʀᴇᴀᴍ.
+/end ᴠᴇʏᴀ /stop : sɪʀᴀʏɪ ᴛᴇᴍɪᴢʟᴇʀ ᴠᴇ ᴍᴇᴠᴄᴜᴛ ʏᴀʏɪɴɪ sᴏɴʟᴀɴᴅɪʀɪʀ.
 
-/player : ɢᴇᴛ ᴀ ɪɴᴛᴇʀᴀᴄᴛɪᴠᴇ ᴩʟᴀʏᴇʀ ᴩᴀɴᴇʟ.
+/player : ᴇᴛᴋɪʟᴇşɪᴍʟɪ ʙɪʀ ᴏʏɴᴀᴛɪᴄɪ ᴘᴀɴᴇʟɪ ᴀʟɪɴ.
 
-/queue : sʜᴏᴡs ᴛʜᴇ ǫᴜᴇᴜᴇᴅ ᴛʀᴀᴄᴋs ʟɪsᴛ.
+/queue : sɪʀᴀʏᴀ ᴀʟɪɴᴀɴ ᴘᴀʀçᴀʟᴀʀɪɴ ʟɪsᴛᴇsɪɴɪ ɢöʀᴛüʀüʀ.
 """
 
 HELP_2 = """
-<b><u>ᴀᴜᴛʜ ᴜsᴇʀs :</b></u>
+<b><u>ᴀᴜᴛʜ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀ :</b></u>
 
-ᴀᴜᴛʜ ᴜsᴇʀs ᴄᴀɴ ᴜsᴇ ᴀᴅᴍɪɴ ʀɪɢʜᴛs ɪɴ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜᴏᴜᴛ ᴀᴅᴍɪɴ ʀɪɢʜᴛs ɪɴ ᴛʜᴇ ᴄʜᴀᴛ.
+ᴀᴜᴛʜ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀ, sᴏʜʙᴇᴛᴛᴇ ᴀᴅᴍɪɴ ʏᴇᴛᴋɪʟᴇʀɪ ʏᴏᴋsᴀ ʙɪʟᴇ, ʙᴏᴛ ᴜᴢᴇʀɪɴᴅᴇ ᴀᴅᴍɪɴ ʏᴇᴛᴋɪʟᴇʀɪɴɪ ᴋᴜʟʟᴀɴᴀʙɪʟɪʀ.
 
-/auth [ᴜsᴇʀɴᴀᴍᴇ/ᴜsᴇʀ_ɪᴅ] : ᴀᴅᴅ ᴀ ᴜsᴇʀ ᴛᴏ ᴀᴜᴛʜ ʟɪsᴛ ᴏғ ᴛʜᴇ ʙᴏᴛ.
-/unauth [ᴜsᴇʀɴᴀᴍᴇ/ᴜsᴇʀ_ɪᴅ] : ʀᴇᴍᴏᴠᴇ ᴀ ᴀᴜᴛʜ ᴜsᴇʀs ғʀᴏᴍ ᴛʜᴇ ᴀᴜᴛʜ ᴜsᴇʀs ʟɪsᴛ.
-/authusers : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ᴀᴜᴛʜ ᴜsᴇʀs ᴏғ ᴛʜᴇ ɢʀᴏᴜᴩ.
+/auth [ᴋᴜʟʟᴀɴɪᴄɪ_ᴀᴅɪ/ᴋᴜʟʟᴀɴɪᴄɪ_ɪᴅ] : ʙɪʀ ᴋᴜʟʟᴀɴɪᴄɪʏɪ ʙᴏᴛᴜɴ ᴀᴜᴛʜ ʟɪsᴛᴇsɪɴᴇ ᴇᴋʟᴇʀ.
+/unauth [ᴋᴜʟʟᴀɴɪᴄɪ_ᴀᴅɪ/ᴋᴜʟʟᴀɴɪᴄɪ_ɪᴅ] : ᴀᴜᴛʜ ʟɪsᴛᴇsɪɴᴅᴇɴ ʙɪʀ ᴋᴜʟʟᴀɴɪᴄɪʏɪ ᴋᴀʟᴅɪʀɪʀ.
+/authusers : ɢʀᴜʙᴜɴ ᴀᴜᴛʜ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀ ʟɪsᴛᴇsɪɴɪ ɢösᴛᴇʀɪʀ.
 """
+
 
 HELP_3 = """
-<u><b>ʙʀᴏᴀᴅᴄᴀsᴛ ғᴇᴀᴛᴜʀᴇ</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs] :
+<u><b>ʏᴀʏɪɴʟᴀᴍᴀ ᴏ̈ᴢᴇʟʟɪɢɪ</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀ ɪᴄ̧ɪɴ] :
 
-/broadcast [ᴍᴇssᴀɢᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ] : ʙʀᴏᴀᴅᴄᴀsᴛ ᴀ ᴍᴇssᴀɢᴇ ᴛᴏ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/broadcast [ᴍᴇsᴀᴊ ᴠᴇʏᴀ ʙɪʀ ᴍᴇsᴀᴊᴀ ʏᴀɴɪᴛ] : ʙᴏᴛᴜɴ sᴜɴᴅᴜɢᴜ ᴛᴜ̈ᴍ sᴏʜʙᴇᴛʟᴇʀᴇ ʙɪʀ ᴍᴇsᴀᴊ ʏᴀʏɪɴʟᴀʀ.
 
-<u>ʙʀᴏᴀᴅᴄᴀsᴛɪɴɢ ᴍᴏᴅᴇs :</u>
-<b>-pin</b> : ᴩɪɴs ʏᴏᴜʀ ʙʀᴏᴀᴅᴄᴀsᴛᴇᴅ ᴍᴇssᴀɢᴇs ɪɴ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs.
-<b>-pinloud</b> : ᴩɪɴs ʏᴏᴜʀ ʙʀᴏᴀᴅᴄᴀsᴛᴇᴅ ᴍᴇssᴀɢᴇ ɪɴ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs ᴀɴᴅ sᴇɴᴅ ɴᴏᴛɪғɪᴄᴀᴛɪᴏɴ ᴛᴏ ᴛʜᴇ ᴍᴇᴍʙᴇʀs.
-<b>-user</b> : ʙʀᴏᴀᴅᴄᴀsᴛs ᴛʜᴇ ᴍᴇssᴀɢᴇ ᴛᴏ ᴛʜᴇ ᴜsᴇʀs ᴡʜᴏ ʜᴀᴠᴇ sᴛᴀʀᴛᴇᴅ ʏᴏᴜʀ ʙᴏᴛ.
-<b>-assistant</b> : ʙʀᴏᴀᴅᴄᴀsᴛ ʏᴏᴜʀ ᴍᴇssᴀɢᴇ ғʀᴏᴍ ᴛʜᴇ ᴀssɪᴛᴀɴᴛ ᴀᴄᴄᴏᴜɴᴛ ᴏғ ᴛʜᴇ ʙᴏᴛ.
-<b>-nobot</b> : ғᴏʀᴄᴇs ᴛʜᴇ ʙᴏᴛ ᴛᴏ ɴᴏᴛ ʙʀᴏᴀᴅᴄᴀsᴛ ᴛʜᴇ ᴍᴇssᴀɢᴇ..
+<u>ʏᴀʏɪɴʟᴀᴍᴀ ᴍᴏᴅʟᴀʀɪ :</u>
+<b>-pin</b> : ʏᴀʏɪɴʟᴀɴᴀɴ ᴍᴇsᴀᴊı sᴏʜʙᴇᴛʟᴇʀᴅᴇ sᴀʙɪᴛʟᴇʀ.
+<b>-pinloud</b> : ʏᴀʏɪɴʟᴀɴᴀɴ ᴍᴇsᴀᴊı sᴀʙɪᴛʟᴇʀ ᴠᴇ üʏᴇʟᴇʀᴇ ʙɪʟᴅɪʀɪᴍ ɢöɴᴅᴇʀɪʀ.
+<b>-user</b> : ʙᴏᴛᴜɴᴜᴢᴜ ʙᴀşʟᴀᴛᴍɪş ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀᴀ ᴍᴇsᴀᴊ ʏᴀʏɪɴʟᴀʀ.
+<b>-assistant</b> : ʙᴏᴛᴜɴ ᴀssɪsᴛᴀɴᴛ ʜᴇsᴀʙɪ ᴜ̈ᴢᴇʀɪɴᴅᴇɴ ᴍᴇsᴀᴊɪɴɪᴢɪ ʏᴀʏɪɴʟᴀʀ.
+<b>-nobot</b> : ʙᴏᴛᴜɴ ᴍᴇsᴀᴊı ʏᴀʏɪɴʟᴀᴍᴀsɪɴɪ ᴢᴏʀᴜɴʟᴜ ᴋɪʟᴀʀ.
 
-<b>ᴇxᴀᴍᴩʟᴇ:</b> <code>/broadcast -user -assistant -pin ᴛᴇsᴛɪɴɢ ʙʀᴏᴀᴅᴄᴀsᴛ</code>
+<b>ᴏ̈ʀɴᴇᴋ:</b> <code>/broadcast -user -assistant -pin ᴛᴇsᴛ ʏᴀʏɪɴɪ</code>
 """
 
-HELP_4 = """<u><b>ᴄʜᴀᴛ ʙʟᴀᴄᴋʟɪsᴛ ғᴇᴀᴛᴜʀᴇ :</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs]
+HELP_4 = """<u><b>sᴏʜʙᴇᴛ ᴋᴀʀᴀʟɪsᴛᴇ ᴏ̈ᴢᴇʟʟɪɢɪ :</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀ ɪᴄ̧ɪɴ]
 
-ʀᴇsᴛʀɪᴄᴛ sʜɪᴛ ᴄʜᴀᴛs ᴛᴏ ᴜsᴇ ᴏᴜʀ ᴘʀᴇᴄɪᴏᴜs ʙᴏᴛ.
+ɢᴇʀᴇᴋsɪᴢ sᴏʜʙᴇᴛʟᴇʀɪ ᴋıʏᴍᴇᴛʟɪ ʙᴏᴛᴜᴍᴜᴢᴅᴀɴ ᴜᴢᴀᴋᴛᴜᴛᴜɴ.
 
-/blacklistchat [ᴄʜᴀᴛ ɪᴅ] : ʙʟᴀᴄᴋʟɪsᴛ ᴀ ᴄʜᴀᴛ ғʀᴏᴍ ᴜsɪɴɢ ᴛʜᴇ ʙᴏᴛ.
-/whitelistchat [ᴄʜᴀᴛ ɪᴅ] : ᴡʜɪᴛᴇʟɪsᴛ ᴛʜᴇ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴄʜᴀᴛ.
-/blacklistedchat : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴄʜᴀᴛs.
+/blacklistchat [sᴏʜʙᴇᴛ ɪᴅ] : ʙɪʀ sᴏʜʙᴇᴛɪ ʙᴏᴛᴜ ᴋᴜʟʟᴀɴᴍᴀsı ɪᴄ̧ɪɴ ᴋᴀʀᴀʟɪsᴛᴇʏᴇ ᴀʟɪʀ.
+/whitelistchat [sᴏʜʙᴇᴛ ɪᴅ] : ᴋᴀʀᴀʟɪsᴛᴇʏᴇ ᴀʟɪɴᴍɪş ʙɪʀ sᴏʜʙᴇᴛɪ ᴛᴇᴋʀᴀʀ ɪᴢɪɴʟɪ ʜᴀʟᴇ ɢᴇᴛɪʀɪʀ.
+/blacklistedchat : ᴋᴀʀᴀʟɪsᴛᴇʏᴇ ᴀʟɪɴᴀɴ sᴏʜʙᴇᴛʟᴇʀɪɴ ʟɪsᴛᴇsɪɴɪ ɢöʀᴛüʀüʀ.
 """
 
 HELP_5 = """
-<u><b>ʙʟᴏᴄᴋ ᴜsᴇʀs:</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs]
+<u><b>ᴋᴜʟʟᴀɴɪᴄɪ ᴇɴɢᴇʟʟᴇᴍᴇ:</b></u> [sᴀᴅᴇᴄᴇ sᴜᴅᴏ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀ ɪᴄ̧ɪɴ]
 
-sᴛᴀʀᴛs ɪɢɴᴏʀɪɴɢ ᴛʜᴇ ʙʟᴀᴄᴋʟɪsᴛᴇᴅ ᴜsᴇʀ, sᴏ ᴛʜᴀᴛ ʜᴇ ᴄᴀɴ'ᴛ ᴜsᴇ ʙᴏᴛ ᴄᴏᴍᴍᴀɴᴅs.
+ᴋᴀʀᴀʟɪsᴛᴇʏᴇ ᴀʟɪɴᴀɴ ᴋᴜʟʟᴀɴɪᴄɪʏɪ ʏᴏᴋ sᴀʏᴀʀ ᴠᴇ ʙᴏᴛ ᴋᴏᴍᴜᴛʟᴀʀɪɴɪ ᴋᴜʟʟᴀɴᴍᴀsɪɴɪ ᴇɴɢᴇʟʟᴇʀ.
 
-/block [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ʙʟᴏᴄᴋ ᴛʜᴇ ᴜsᴇʀ ғʀᴏᴍ ᴏᴜʀ ʙᴏᴛ.
-/unblock [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ᴜɴʙʟᴏᴄᴋs ᴛʜᴇ ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀ.
-/blockedusers : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs.
+/block [ᴋᴜʟʟᴀɴɪᴄɪ ᴀᴅɪ ᴠᴇʏᴀ ʙɪʀ ᴋᴜʟʟᴀɴɪᴄɪʏᴀ ʏᴀɴɪᴛ] : ᴋᴜʟʟᴀɴɪᴄɪʏɪ ʙᴏᴛᴜᴍᴜᴢᴅᴀɴ ᴇɴɢᴇʟʟᴇʀ.
+/unblock [ᴋᴜʟʟᴀɴɪᴄɪ ᴀᴅɪ ᴠᴇʏᴀ ʙɪʀ ᴋᴜʟʟᴀɴɪᴄɪʏᴀ ʏᴀɴɪᴛ] : ᴇɴɢᴇʟʟɪ ᴋᴜʟʟᴀɴɪᴄɪɴɪɴ ᴇɴɢᴇʟɪɴɪ ᴋᴀʟᴅɪʀɪʀ.
+/blockedusers : ᴇɴɢᴇʟʟɪ ᴋᴜʟʟᴀɴɪᴄɪʟᴀʀɪɴ ʟɪsᴛᴇsɪɴɪ ɢöʀᴛüʀüʀ.
 """
 
 HELP_6 = """
-<u><b>ᴄʜᴀɴɴᴇʟ ᴩʟᴀʏ ᴄᴏᴍᴍᴀɴᴅs:</b></u>
+<u><b>ᴋᴀɴᴀʟ ᴏʏɴᴀᴛᴍᴀ ᴋᴏᴍᴜᴛʟᴀʀɪ:</b></u>
 
-ʏᴏᴜ ᴄᴀɴ sᴛʀᴇᴀᴍ ᴀᴜᴅɪᴏ/ᴠɪᴅᴇᴏ ɪɴ ᴄʜᴀɴɴᴇʟ.
+ᴋᴀɴᴀʟᴅᴀ sᴇs/ᴠɪᴅᴇᴏ ʏᴀʏɪɴɪ ʙᴀşʟᴀᴛᴀʙɪʟɪʀsɪɴɪᴢ.
 
-/cplay : sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴀᴜᴅɪᴏ ᴛʀᴀᴄᴋ ᴏɴ ᴄʜᴀɴɴᴇʟ's ᴠɪᴅᴇᴏᴄʜᴀᴛ.
-/cvplay : sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴠɪᴅᴇᴏ ᴛʀᴀᴄᴋ ᴏɴ ᴄʜᴀɴɴᴇʟ's ᴠɪᴅᴇᴏᴄʜᴀᴛ.
-/cplayforce or /cvplayforce : sᴛᴏᴩs ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ ᴀɴᴅ sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴛʀᴀᴄᴋ.
+/cplay : ɪsᴛᴇɴᴇɴ sᴇs ᴘᴀʀçᴀsɪɴɪ ᴋᴀɴᴀʟıɴ ᴠɪᴅᴇᴏsᴏʜʙᴇᴛɪɴᴅᴇ ᴏʏɴᴀᴛɪʀ.
+/cvplay : ɪsᴛᴇɴᴇɴ ᴠɪᴅᴇᴏ ᴘᴀʀçᴀsɪɴɪ ᴋᴀɴᴀʟıɴ ᴠɪᴅᴇᴏsᴏʜʙᴇᴛɪɴᴅᴇ ᴏʏɴᴀᴛɪʀ.
+/cplayforce veya /cvplayforce : ᴅᴇᴠᴀᴍ ᴇᴅᴇɴ ʏᴀʏɪɴɪ ᴅᴜʀᴅᴜʀᴜʀ ᴠᴇ ɪsᴛᴇɴᴇɴ ᴘᴀʀçᴀʏɪ ʏᴀʏɪɴʟᴀᴍᴀʏᴀ ʙᴀşʟᴀʀ.
 
-/channelplay [ᴄʜᴀᴛ ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ɪᴅ] ᴏʀ [ᴅɪsᴀʙʟᴇ] : ᴄᴏɴɴᴇᴄᴛ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴀ ɢʀᴏᴜᴩ ᴀɴᴅ sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʀᴀᴄᴋs ʙʏ ᴛʜᴇ ʜᴇʟᴩ ᴏғ ᴄᴏᴍᴍᴀɴᴅs sᴇɴᴛ ɪɴ ɢʀᴏᴜᴩ.
+/channelplay [sᴏʜʙᴇᴛ ᴋᴜʟʟᴀɴɪᴄɪ ᴀᴅɪ ᴠᴇʏᴀ ɪᴅ] ᴠᴇʏᴀ [ᴋᴀᴘᴀᴛ] : ʙɪʀ ᴋᴀɴᴀʟɪ ɢʀᴜʙᴀ ʙᴀğʟᴀʀ ᴠᴇ ɢʀᴜᴘᴛᴀ ɢöɴᴅᴇʀɪʟᴇɴ ᴋᴏᴍᴜᴛʟᴀʀ ᴠᴀsɪᴛᴀsɪʏʟᴀ ᴘᴀʀçᴀʟᴀʀɪ ʏᴀʏɪɴʟᴀʀ.
 """
 
 HELP_7 = """
-<u><b>ɢʟᴏʙᴀʟ ʙᴀɴ ғᴇᴀᴛᴜʀᴇ</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs] :
+<u><b>🌐 Global Yasaklama Özelliği</b></u> [yalnızca sudo kullanıcıları için]:
 
-/gban [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ɢʟᴏʙᴀʟʟʏ ʙᴀɴs ᴛʜᴇ ᴄʜᴜᴛɪʏᴀ ғʀᴏᴍ ᴀʟʟ ᴛʜᴇ sᴇʀᴠᴇᴅ ᴄʜᴀᴛs ᴀɴᴅ ʙʟᴀᴄᴋʟɪsᴛ ʜɪᴍ ғʀᴏᴍ ᴜsɪɴɢ ᴛʜᴇ ʙᴏᴛ.
-/ungban [ᴜsᴇʀɴᴀᴍᴇ ᴏʀ ʀᴇᴩʟʏ ᴛᴏ ᴀ ᴜsᴇʀ] : ɢʟᴏʙᴀʟʟʏ ᴜɴʙᴀɴs ᴛʜᴇ ɢʟᴏʙᴀʟʟʏ ʙᴀɴɴᴇᴅ ᴜsᴇʀ.
-/gbannedusers : sʜᴏᴡs ᴛʜᴇ ʟɪsᴛ ᴏғ ɢʟᴏʙᴀʟʟʏ ʙᴀɴɴᴇᴅ ᴜsᴇʀs.
+/gban [kullanıcı adı veya kullanıcıya yanıt verin] : Kullanıcıyı tüm desteklenen sohbetlerden global olarak yasaklar ve botu kullanmasını engeller.
+/ungban [kullanıcı adı veya kullanıcıya yanıt verin] : Global olarak yasaklanan kullanıcının yasağını kaldırır.
+/gbannedusers : Global olarak yasaklanan kullanıcıların listesini gösterir.
 """
 
 HELP_8 = """
-<b><u>ʟᴏᴏᴘ sᴛʀᴇᴀᴍ :</b></u>
+<b><u>🔁 Döngüsel Yayın:</b></u>
 
-<b>sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ ɪɴ ʟᴏᴏᴘ</b>
+<b>Mevcut yayını döngüde oynatmaya başlatır</b>
 
-/loop [enable/disable] : ᴇɴᴀʙʟᴇs/ᴅɪsᴀʙʟᴇs ʟᴏᴏᴘ ғᴏʀ ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ
-/loop [1, 2, 3, ...] : ᴇɴᴀʙʟᴇs ᴛʜᴇ ʟᴏᴏᴘ ғᴏʀ ᴛʜᴇ ɢɪᴠᴇɴ ᴠᴀʟᴜᴇ.
+/loop [aç/kapat] : Mevcut yayın için döngüyü açar ya da kapatır.
+/loop [1, 2, 3, ...] : Verilen sayı kadar döngü ile yayını tekrarlar.
 """
 
 HELP_9 = """
-<u><b>ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ ᴍᴏᴅᴇ</b></u> [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏᴇʀs] :
+<u><b>BAKIM MODU</b></u> [yalnızca SUDOER’lar için] :
 
-/logs : ɢᴇᴛ ʟᴏɢs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/logs : Botun loglarını alır.
 
-/logger [ᴇɴᴀʙʟᴇ/ᴅɪsᴀʙʟᴇ] : ʙᴏᴛ ᴡɪʟʟ sᴛᴀʀᴛ ʟᴏɢɢɪɴɢ ᴛʜᴇ ᴀᴄᴛɪᴠɪᴛɪᴇs ʜᴀᴩᴩᴇɴ ᴏɴ ʙᴏᴛ.
+/logger [aç/kapat] : Botun aktiviteleri kaydetmeye başlamasını sağlar veya durdurur.
 
-/maintenance [ᴇɴᴀʙʟᴇ/ᴅɪsᴀʙʟᴇ] : ᴇɴᴀʙʟᴇ ᴏʀ ᴅɪsᴀʙʟᴇ ᴛʜᴇ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ ᴍᴏᴅᴇ ᴏғ ʏᴏᴜʀ ʙᴏᴛ.
+/maintenance [aç/kapat] : Botun bakım modunu açar veya kapatır.
 """
 
 HELP_10 = """
-<b><u>ᴘɪɴɢ & sᴛᴀᴛs :</b></u>
+<b><u>ᴘɪɴɢ & ᴅᴜʀᴜᴍ :</b></u>
 
-/start : sᴛᴀʀᴛs ᴛʜᴇ ᴍᴜsɪᴄ ʙᴏᴛ.
-/help : ɢᴇᴛ ʜᴇʟᴩ ᴍᴇɴᴜ ᴡɪᴛʜ ᴇxᴩʟᴀɴᴀᴛɪᴏɴ ᴏғ ᴄᴏᴍᴍᴀɴᴅs.
+/start : Müzik botunu başlatır.
+/help : Komutların açıklamalarıyla birlikte yardım menüsünü gösterir.
 
-/ping : sʜᴏᴡs ᴛʜᴇ ᴩɪɴɢ ᴀɴᴅ sʏsᴛᴇᴍ sᴛᴀᴛs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/ping : Botun ping ve sistem durumunu gösterir.
 
-/stats : sʜᴏᴡs ᴛʜᴇ ᴏᴠᴇʀᴀʟʟ sᴛᴀᴛs ᴏғ ᴛʜᴇ ʙᴏᴛ.
+/stats : Botun genel durum istatistiklerini gösterir.
 """
 
 HELP_11 = """
-<u><b>ᴩʟᴀʏ ᴄᴏᴍᴍᴀɴᴅs :</b></u>
+<u><b>ᴏʏɴᴀᴛ ᴋᴏᴍᴜᴛʟᴀʀɪ :</b></u>
 
-<b>v :</b> sᴛᴀɴᴅs ғᴏʀ ᴠɪᴅᴇᴏ ᴩʟᴀʏ.
-<b>force :</b> sᴛᴀɴᴅs ғᴏʀ ғᴏʀᴄᴇ ᴩʟᴀʏ.
+<b>v :</b> Video oynatma anlamına gelir.
+<b>force :</b> Zorla oynatma anlamına gelir.
 
-/play ᴏʀ /vplay : sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴛʀᴀᴄᴋ ᴏɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ.
+/play veya /vplay : İstenen parçayı video sohbette çalmaya başlatır.
 
-/playforce ᴏʀ /vplayforce : sᴛᴏᴩs ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ ᴀɴᴅ sᴛᴀʀᴛs sᴛʀᴇᴀᴍɪɴɢ ᴛʜᴇ ʀᴇǫᴜᴇsᴛᴇᴅ ᴛʀᴀᴄᴋ.
+/playforce veya /vplayforce : Devam eden yayını durdurur ve istenen parçayı çalmaya başlar.
 """
 
 HELP_12 = """
-<b><u>sʜᴜғғʟᴇ ᴏ̨ᴜᴇᴜᴇ :</b></u>
+<b><u>ʀᴀɴɢᴇʟᴇ ᴋᴜʏʀᴜᴋ :</b></u>
 
-/shuffle : sʜᴜғғʟᴇ's ᴛʜᴇ ᴏ̨ᴜᴇᴜᴇ.
-/queue : sʜᴏᴡs ᴛʜᴇ sʜᴜғғʟᴇᴅ ᴏ̨ᴜᴇᴜᴇ.
+/shuffle : Kuyruğu karıştırır.
+/queue : Karışık kuyruğu gösterir.
 """
 
 HELP_13 = """
-<b><u>sᴇᴇᴋ sᴛʀᴇᴀᴍ :</b></u>
+<b><u>ᴋᴀʏᴅɪɴ ᴀʀᴀ :</b></u>
 
-/seek [ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs] : sᴇᴇᴋ ᴛʜᴇ sᴛʀᴇᴀᴍ ᴛᴏ ᴛʜᴇ ɢɪᴠᴇɴ ᴅᴜʀᴀᴛɪᴏɴ.
-/seekback [ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs] : ʙᴀᴄᴋᴡᴀʀᴅ sᴇᴇᴋ ᴛʜᴇ sᴛʀᴇᴀᴍ ᴛᴏ ᴛʜᴇ ᴛʜᴇ ɢɪᴠᴇɴ ᴅᴜʀᴀᴛɪᴏɴ.
+/seek [saniye olarak süre] : Yayını belirtilen süreye sarar.
+/seekback [saniye olarak süre] : Yayını belirtilen süre geri sarar.
 """
 
 HELP_14 = """
-<b><u>sᴏɴɢ ᴅᴏᴡɴʟᴏᴀᴅ</b></u>
+<b><u>ᴘᴀʀçᴀ ɪɴᴅɪʀᴍᴇ</b></u>
 
-/song [sᴏɴɢ ɴᴀᴍᴇ/ʏᴛ ᴜʀʟ] : ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴʏ ᴛʀᴀᴄᴋ ғʀᴏᴍ ʏᴏᴜᴛᴜʙᴇ ɪɴ ᴍᴘ3 ᴏʀ ᴍᴘ4 ғᴏʀᴍᴀᴛs.
+/song [parça adı/YouTube url] : YouTube’dan herhangi bir parçayı mp3 veya mp4 formatında indirir.
 """
 
 HELP_15 = """
-<b><u>sᴘᴇᴇᴅ ᴄᴏᴍᴍᴀɴᴅs :</b></u>
+<b><u>ʜɪᴢ ᴋᴏᴍᴜᴛʟᴀʀɪ :</b></u>
 
-ʏᴏᴜ ᴄᴀɴ ᴄᴏɴᴛʀᴏʟ ᴛʜᴇ ᴘʟᴀʏʙᴀᴄᴋ sᴘᴇᴇᴅ ᴏғ ᴛʜᴇ ᴏɴɢᴏɪɴɢ sᴛʀᴇᴀᴍ. [ᴀᴅᴍɪɴs ᴏɴʟʏ]
+Devam eden yayının oynatma hızını kontrol edebilirsiniz. [Yalnızca adminler]
 
-/speed or /playback : ғᴏʀ ᴀᴅᴊᴜsᴛɪɴɢ ᴛʜᴇ ᴀᴜᴅɪᴏ ᴘʟᴀʏʙᴀᴄᴋ sᴘᴇᴇᴅ ɪɴ ɢʀᴏᴜᴘ.
-/cspeed or /cplayback : ғᴏʀ ᴀᴅᴊᴜsᴛɪɴɢ ᴛʜᴇ ᴀᴜᴅɪᴏ ᴘʟᴀʏʙᴀᴄᴋ sᴘᴇᴇᴅ ɪɴ ᴄʜᴀɴɴᴇʟ.
+/speed veya /playback : Grubun ses oynatma hızını ayarlar.
+/cspeed veya /cplayback : Kanalda ses oynatma hızını ayarlar.
 """
 
 HELP_16 = """
-<b><u>ᴘʀɪᴠᴀᴄʏ ᴘᴏʟɪᴄʏ:</b></u>
+<b><u>ɢɪᴢʟɪʟɪᴋ ᴘᴏʟɪᴛɪᴋᴀsɪ :</b></u>
 
-/Privacy : Display the privacy statement for Sarcastic Bot 
+/privacy : Sarcastic Bot için gizlilik politikasını gösterir.
 """
 
 HELP_17 = """
-<b><u>ɢᴀᴍᴇs</b></u>
+<b><u>ᴏʏᴜɴʟᴀʀ</b></u>
 
-/dice : Rᴏʟʟs ᴀ ᴅɪᴄᴇ.
-/ludo : Pʟᴀʏ Lᴜᴅᴏ.
-/dart : Tʜʀᴏᴡs ᴀ ᴅᴀʀᴛ.
-/basket ᴏʀ /basketball : Pʟᴀʏs ʙᴀsᴋᴇᴛʙᴀʟʟ.
-/football : Pʟᴀʏs ғᴏᴏᴛʙᴀʟʟ.
-/slot ᴏʀ /jackpot : Pʟᴀʏs ᴊᴀᴄᴋᴘᴏᴛ.
-/bowling : Pʟᴀʏs ʙᴏᴡʟɪɴɢ.
+/dice : Zar atar.
+/ludo : Ludo oynar.
+/dart : Dart atar.
+/basket veya /basketball : Basketbol oynar.
+/football : Futbol oynar.
+/slot veya /jackpot : Slot makinesi oynar.
+/bowling : Bowling oynar.
 """
 
 HELP_18 = """
-<b><u>ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅs</b></u>
-/ban - Ban A User
-/banall - Ban All Users
-/sban - Delete all messages of user that sended in group and ban the user
-/tban - Ban A User For Specific Time
-/unban - Unban A User
-/warn - Warn A User
-/swarn - Delete all the message sended in group and warn the user
-/rmwarns - Remove All Warning of A User
-/warns - Show Warning Of A User
-/kick - Kick A User
-/skick - Delete the replied message kicking its sender
-/purge - Purge Messages
-/purge [n] - Purge "n" number of messages from replied message
-/del - Delete Replied Message
-/promote - Promote A Member
-/fullpromote - Promote A Member With All Rights
-/demote - Demote A Member
-/pin - Pin A Message
-/unpin - unpin a message
-/unpinall - unpinall messages
-/mute - Mute A User
-/tmute - Mute A User For Specific Time
-/unmute - Unmute A User
-/zombies - Ban Deleted Accounts
-/report | @admins | @admin - Report A Message To Admins.
+<b><u>ᴀᴅᴍɪɴ ᴋᴏᴍᴜᴛʟᴀʀɪ</b></u>
+/ban - Bir kullanıcıyı yasakla
+/banall - Tüm kullanıcıları yasakla
+/sban - Kullanıcının grup içinde gönderdiği tüm mesajları sil ve kullanıcıyı yasakla
+/tban - Belirli süreli yasaklama
+/unban - Kullanıcının yasağını kaldır
+/warn - Kullanıcıyı uyar
+/swarn - Grubun içindeki tüm mesajları sil ve kullanıcıyı uyar
+/rmwarns - Kullanıcının tüm uyarılarını kaldır
+/warns - Kullanıcının uyarılarını göster
+/kick - Kullanıcıyı at
+/skick - Yanıtlanan mesajı sil ve gönderenini at
+/purge - Mesajları temizle
+/purge [n] - Yanıtlanan mesajdan n adet mesajı temizle
+/del - Yanıtlanan mesajı sil
+/promote - Üyeyi yetkilendir
+/fullpromote - Üyeyi tüm yetkilerle yetkilendir
+/demote - Yetkisini al
+/pin - Mesajı sabitle
+/unpin - Sabitlenmiş mesajı kaldır
+/unpinall - Tüm sabitlenmiş mesajları kaldır
+/mute - Kullanıcıyı sustur
+/tmute - Belirli süreli susturma
+/unmute - Susturmayı kaldır
+/zombies - Silinmiş hesapları yasakla
+/report | @admins | @admin - Mesajı adminlere bildir
 """
 
 HELP_19 = """
-<b><u>ɪᴍᴀɢᴇ ʟɪɴᴋ ɢᴇɴᴇʀᴀᴛᴏʀ:</b></u>
+<b><u>ʀᴇsɪᴍ ʟɪɴᴋ ᴏʟᴜşᴛᴜʀᴜᴄᴜ:</b></u>
 
-/tgm : ʀᴇᴘʟʏ ᴛᴏ ᴀɴ ᴀɴʏ ɪᴍᴀɢᴇ,ᴠɪᴅᴇᴏ ᴏʀ ɢɪғ
+/tgm : Herhangi bir resim, video veya gif’e yanıtla
 """
 
 HELP_20 = """
-<b><u>ᴛᴀɢ ᴄᴏᴍᴍᴀɴᴅs:</b></u>
+<b><u>ᴇᴛɪᴋᴇᴛ ᴋᴏᴍᴜᴛʟᴀʀı:</b></u>
 
-/tagall [ʏᴏᴜʀ ᴍᴇssᴀɢᴇ ᴏʀ ʀᴇᴘʟʏ ᴏɴ ᴀɴʏ ᴄʜᴀᴛ] : ᴛᴀɢ ᴀʟʟ ᴜsᴇʀs.
-/admins [ʏᴏᴜʀ ᴍᴇssᴀɢᴇ ᴏʀ ʀᴇᴘʟʏ ᴏɴ ᴀɴʏ ᴄʜᴀᴛ] : ᴛᴀɢ ᴀʟʟ ᴀᴅᴍɪɴs.
+/tagall [mesajınız veya herhangi bir sohbette yanıt] : Tüm kullanıcıları etiketle.
+/admins [mesajınız veya herhangi bir sohbette yanıt] : Tüm adminleri etiketle.
 """
 
 HELP_21 = """
-<b><u>ᴅᴏᴡɴʟᴏᴀᴅ ᴠɪᴅᴇᴏs:</b></u>
+<b><u>ᴠɪᴅᴇᴏ ɪɴᴅɪʀᴍᴇ:</b></u>
 
-/vid : ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴʏ ɪɴsᴛᴀ ᴛᴡɪᴛᴛᴇʀ ᴀɴᴅ ᴍᴏʀᴇ ᴘʟᴀᴛғᴏʀᴍs ᴠɪᴅᴇᴏ.
+/vid : Instagram, Twitter ve daha fazlasından video indirir.
 """
 
-# Copyright (c) 2025 Nand Yaduwanshi <NoxxOP>
+HELP_22 = """ 🔊 <b>METİN-SES KOMUTLARI</b> 🎤
 
-# 🎯 TEXT TO SPEECH COMMANDS
-HELP_22 = """ 🔊 <b>TEXT TO SPEECH</b> 🎤
-
-• /tts &lt;text&gt;: Converts the given text to speech in Hindi 🇮🇳
-<b>Example:</b>
+• /tts <metin> : Verilen metni Hintçe sese dönüştürür 🇮🇳
+<b>Örnek:</b>
 • /tts Radhe Radhe 🙏
 
-<b>Note:</b> Make sure to provide some text after the /tts command ✨ """
+<b>Not:</b> /tts komutundan sonra metin girdiğinizden emin olun ✨
+"""
 
-# 🔗 INVITE LINK COMMANDS  
-HELP_23 = """ 🔗 <b>INVITE LINK COMMANDS</b> 💫
+HELP_23 = """ 🔗 <b>DAVET LİNKİ KOMUTLARI</b> 💫
 
-• /givelink: Get the invite link for the current chat 📱
-• /link group_id: Get information and generate an invite link for the specified group ID 🆔 """
+• /givelink : O anki sohbetin davet linkini alır 📱
+• /link grup_id : Belirtilen grup ID’si için davet linki oluşturur 🆔
+"""
 
-# 🔒 FORCE SUBSCRIPTION COMMANDS
-HELP_24 = """ 🔒 <b>FORCE SUBSCRIPTION COMMANDS</b> 🎯
+HELP_24 = """ 🔒 <b>ZORUNLU ABONELİK KOMUTLARI</b> 🎯
 
-• /fsub &lt;channel username or id&gt; - Set force subscription for this group 📢
-• /fsub off - Disable force subscription for this group ❌ """
+• /fsub <kanal kullanıcı adı veya id> : Bu grup için zorunlu abonelik ayarla 📢
+• /fsub off : Zorunlu aboneliği kapat ❌
+"""
 
-# 🧟 ZOMBIE ACCOUNTS
-HELP_25 = """ 🧟 <b>ZOMBIE ACCOUNTS</b> 💀
+HELP_25 = """ 🧟 <b>SİLİNEN HESAPLAR</b> 💀
 
-• /zombies - Ban Deleted Accounts 🚫 """
+• /zombies : Silinmiş hesapları yasaklar 🚫
+"""
 
-# 👤 USER INFORMATION
-HELP_26 = """ 👤 <b>USER INFORMATION</b> 📊
+HELP_26 = """ 👤 <b>KULLANICI BİLGİSİ</b> 📊
 
-• /info [user_id]: Get detailed information about a user 🔍
-• /userinfo [user_id]: Alias for /info 👥 """
+• /info [kullanıcı_id] : Bir kullanıcı hakkında detaylı bilgi verir 🔍
+• /userinfo [kullanıcı_id] : /info komutunun diğer adı 👥
+"""
 
-# 📁 GITHUB REPOSITORY DOWNLOADER
-HELP_27 = """ 📁 <b>GITHUB REPOSITORY DOWNLOADER</b> 🐙
+HELP_27 = """ 📁 <b>GITHUB DEPOSU İNDİRİCİSİ</b> 🐙
 
-<b>Commands Help:</b> 💻
+<b>Komutlar Yardımı:</b> 💻
 1. /downloadrepo 📥
 
-<b>Description:</b> Download and retrieve files from a GitHub repository 🗂️
-<b>Usage:</b> /downloadrepo [Repo_URL] 🔗
-<b>Details:</b>
-• Clones the specified GitHub repository 📋
-• Creates a zip file of the repository 📦
-• Sends the zip file back as a document 📄
-• If the download fails, an error message will be displayed ⚠️
+<b>Açıklama:</b> GitHub deposundan dosya indirir ve getirir 🗂️
+<b>Kullanım:</b> /downloadrepo [Repo_URL] 🔗
+<b>Detaylar:</b>
+• Belirtilen GitHub deposunu klonlar 📋
+• Depoyu zip dosyası olarak oluşturur 📦
+• Zip dosyasını belge olarak gönderir 📄
+• İndirme başarısız olursa hata mesajı gösterir ⚠️
 
-<b>Examples:</b>
-• /downloadrepo https://github.com/username/repository 🌟 """
+<b>Örnek:</b>
+• /downloadrepo https://github.com/kullanici/depoadi 🌟
+"""
 
-# 🎲 TRUTH OR DARE BOT COMMANDS
-HELP_28 = """ 🎲 <b>TRUTH OR DARE BOT COMMANDS</b> 🎯
+HELP_28 = """ 🎲 <b>DOĞRULUK MU CESARET Mİ BOT KOMUTLARI</b> 🎯
 
-Use these commands to play truth or dare: 🎮
-• /truth: Get a random truth question. Answer honestly! 💭
-• /dare: Get a random dare challenge. Complete it if you dare! 🔥
+Bu komutlarla doğruluk mu cesaret mi oynayın: 🎮
+• /truth : Rastgele doğruluk sorusu al. Dürüstçe cevapla! 💭
+• /dare : Rastgele cesaret meydan okuması al. Cesaretin varsa yap! 🔥
 
-<b>Examples:</b>
-• /truth: "What is your most embarrassing moment?" 😅
-• /dare: "Do 10 push-ups." 💪
+<b>Örnekler:</b>
+• /truth : "En utanç verici anın nedir?" 😅
+• /dare : "10 şınav çek." 💪
 
-<b>Note:</b> If you encounter any issues with fetching questions, please try again later ⏰ """
+<b>Not:</b> Soruları almakta sorun yaşarsanız lütfen daha sonra tekrar deneyin ⏰
+"""
 
-# 🍃 MONGODB CHECKER
-HELP_29 = """ 🍃 <b>MONGODB CHECKER</b> 🔍
+HELP_29 = """ 🍃 <b>MONGODB KONTROL</b> 🔍
 
-• /mongochk [mongo_url]: Checks the validity of a MongoDB URL and connection to the MongoDB instance 🗄️ """
+• /mongochk [mongo_url] : Bir MongoDB URL’sinin geçerliliğini ve bağlantısını kontrol eder 🗄️
+"""
 
-# 🔤 FONT CONVERTER
-HELP_30 = """ 🔤 <b>FONT CONVERTER</b> ✨
+HELP_30 = """ 🔤 <b>YAZI TİPİ DÖNÜŞTÜRÜCÜ</b> ✨
 
-• /font [text] - Converts simple text to beautiful text by changing its font 🎨 """
+• /font [metin] : Basit metni güzel yazı tiplerine dönüştürür 🎨
+"""
 
-# 🤬 GALI COMMANDS
-HELP_31 = """ 🤬 <b>GALI COMMANDS</b> 😤
+HELP_31 = """ 🤬 <b>KÜFÜR KOMUTLARI</b> 😤
 
-<b>Commands:</b>
-• /gali - Send random gali (works in DM) 💢
-• .gali - Alternative command format 🔥 """
+<b>Komutlar:</b>
+• /gali : Rastgele küfür gönderir (DM’de çalışır) 💢
+• .gali : Alternatif komut formatı 🔥
+"""
 
-# 🤖 BOT LIST
-HELP_32 = """ 🤖 <b>BOT LIST</b> 🎯
+HELP_32 = """ 🤖 <b>BOT LİSTESİ</b> 🎯
 
-• /bots - Get a list of bots in the group 📋 """
+• /bots : Grubun bot listesini alır 📋
+"""
 
-# 📝 MARKDOWN HELP
-HELP_33 = """ 📝 <b>MARKDOWN HELP</b> 📖
+HELP_33 = """ 📝 <b>MARKDOWN YARDIMI</b> 📖
 
-• /markdownhelp - Help about Markdown 🔧 """
+• /markdownhelp : Markdown ile ilgili yardım alır 🔧
+"""
 
-# 🏷️ WISH TAG HELP
-HELP_34 = """ 🏷️ <b>WISH TAG HELP</b> 🌟
+HELP_34 = """ 🏷️ <b>ETİKETLEME YARDIMI</b> 🌟
 
-<b>Good Morning:</b> 🌅
-• /gmtag - Start Good Morning tagging ☀️
-• /gmstop - Stop Good Morning tagging 🛑
+<b>Günaydın:</b> 🌅
+• /gmtag : Günaydın etiketlemeyi başlatır ☀️
+• /gmstop : Günaydın etiketlemeyi durdurur 🛑
 
-<b>Good Afternoon:</b> 🌞
-• /gatag - Start Good Afternoon tagging 🌤️
-• /gastop - Stop Good Afternoon tagging 🛑
+<b>Tünaydın:</b> 🌞
+• /gatag : Tünaydın etiketlemeyi başlatır 🌤️
+• /gastop : Tünaydın etiketlemeyi durdurur 🛑
 
-<b>Good Night:</b> 🌙
-• /gntag - Start Good Night tagging 🌜
-• /gnstop - Stop Good Night tagging 🛑
+<b>İyi geceler:</b> 🌙
+• /gntag : İyi geceler etiketlemeyi başlatır 🌜
+• /gnstop : İyi geceler etiketlemeyi durdurur 🛑
 
-<b>Utility:</b> ⚙️
-• /stopall - Stop all active tagging 🚫
-• /taghelp - Show this help message 📖
+<b>Yardımcı:</b> ⚙️
+• /stopall : Aktif tüm etiketlemeleri durdurur 🚫
+• /taghelp : Bu yardım mesajını gösterir 📖
 
-<b>Note:</b> Only one tagging session can run per chat at a time 📌 """
+<b>Not:</b> Aynı anda her sohbette yalnızca bir etiketleme aktif olabilir 📌
+"""
 
-HELP_35 = """ <b>User Welcome Message</b>
-• /welcome on/off: Enable or Disable welcome message . """
+HELP_35 = """ <b>Kullanıcı Karşılama Mesajı</b>
+• /welcome on/off : Karşılama mesajını açar veya kapatır.
+"""
