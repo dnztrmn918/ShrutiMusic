@@ -1,122 +1,229 @@
 import random
-from pyrogram import Client, filters
-from pyrogram.types import Message
-from ShrutiMusic import app
+import json
+import os
 import asyncio
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from ShrutiMusic import app
 
-DOKUNDURMA_MESAJLARI = [
-    "Yine mi karıştın işlere, {mention}? Beyin nerede kayıp acaba? 🤔",
-    "Akıl fukaralığı sınırları zorluyorsun {mention}, Nobel de bekliyoruz! 😂",
-    "Seninle uğraşmak ayrı sabır işi, adam gibi ol biraz {mention}!",
-    "Konuşma hızını yavaşlat da, böyle deli gibi söyleyip kimse anlamasın {mention}!",
-    "Seninle sohbet etmek, dalgıçlık kursuna gitmek gibi; derin ve zor {mention}!",
-    "Kafanı toparla biraz da dünya senin etrafında dönmüyor {mention}!",
-    "Çok konuşup az iş yapanlar kulübüne hoş geldin {mention}!",
-    "Gülme sesin kadar zekan da eksik galiba {mention}, en azından sessiz ol!",
-    "Bu kadar takılma, rahatla biraz, yoksa dişçiye gitmen gerekebilir {mention}!",
-    "Aman dikkat et, ciddiye alınmak için biraz değişmen lazım {mention}!",
-    "Sen olmasan grup ne sıkıcı olurdu, devam et komedi yapmaya {mention}!",
-    "Biraz sakin ol da biz de nefes alalım, azıcık mı rahatla {mention}!",
-    "Kendini fazla kaptırma, hayat bu kadar da abartılmaz {mention}!",
-    "Bugün biraz daha sessiz kal da kulaklarımız şenlensin {mention}!",
-    "Takılma huyunu bırak, hayat kısa senin kadar uzun değil {mention}!",
-    "Seninle uğraşmak terapi gibi geliyor, devam et biraz {mention}!",
-    "Dur bakalım, biraz toparlan da biz de dinlenelim, zor sabrediyoruz {mention}!",
-    "Yine mi sen? Vay be, sen olmasan bu grup boş kalırdı {mention}!",
-    "Hadi bakalım, biraz da biz konuşalım da sen dinle {mention}!",
-    "Efsanesin ama biraz yavaşla, her şeyin bir sınırı var {mention}!",
-    "Nefes almayı unutma, bazen mola vermek lazım, yoksa patlarsın {mention}!",
-    "O kadar konuşma, kulaklarım yoruldu, biraz susmayı dene {mention}!",
-    "Şaka mı yapıyorsun, yoksa ciddi misin? Zor anlaşılan bir haldesin {mention}!",
-    "Bazen susmak da altın değerindedir, sen denemelisin {mention}!",
-    "Biraz düşün, sonra konuş, beyin yorgunluğu var galiba {mention}!",
-    "Söz uçar, yazı kalır ama sen fark etmezsin, sen yazı okumayı dene {mention}!",
-    "Dalgın mısın, yoksa sadece böyle mi davranıyorsun, karıştım {mention}!",
-    "Biraz akıl, biraz saygı lazım sana, ütopik gelebilir ama dene {mention}!",
-    "Dünyayı kurtarmaya çalışıyorsun ama kendini unutuyorsun, biraz sakin ol {mention}!",
-    "Seninle konuşmak bulmaca çözmek gibi, şifreyi çözmek lazım {mention}!",
-    "Kendini fazla önemseme, etrafında sadece sen yoksun {mention}!",
-    "Sen hayatı fazlasıyla ciddiye alıyorsun, biz de ciddiyetsiziz, bu dengeyi kur {mention}!",
-    "Sen olmasan bu kadar eğlenceli olmazdı, biraz absürt insan {mention}!",
-    "Sana ‘yavaşla’ demek, koşan adama ‘otur’ demek gibi, zor iş {mention}!",
-    "Sen ne kadar konuşsan da biz seni hep aynı yere koyarız, değişmez {mention}!",
-    "Kafanı çalıştırmayı dene, Google’a danışmadan önce {mention}!",
-    "Mizah anlayışın 90'larda kalmış, güncellemeni öneririm {mention}!",
-    "Sadece çok konuşma değil, azıcık anlamaya çalış da faydan olsun {mention}!",
-    "O kadar hızlı konuşuyorsun ki, çevirmen lazım bize {mention}!",
-    "Sözlerin bitse de suskunluğun konuşsa keşke {mention}!",
-    "Kafanı topla da biz de seni ciddiye alalım biraz {mention}!",
-    "Çok konuşman seni önemli yapmaz, aksine anlamazlar seni {mention}!",
-    "Zeka pırıltısı yok ama ışık saçıyorsun, karanlıkları aydınlatıyorsun {mention}!",
-    "Bazen sessizlik en iyi cevaptır, dene bakalım {mention}!",
-    "Seninle muhabbet etmek zorlu ama eğlenceli bir macera {mention}!",
-    "Kafanı dinle, kalbini dinle, biz seni bekleriz {mention}!",
-    "Konuşmadan önce düşün, sonra pişman olma {mention}!",
-    "Herkesin sevdiği 'karışık' tip sensin, şaşırmıyoruz {mention}!",
-    "Yine mi sen? İyi ki varsın, yoksa sıkılırdık {mention}!",
-    "Sabır taşı bizde çatladı, sen daha dayan biz de dayanırız {mention}!"
-]
+SIIR_JSON = os.path.join(os.path.dirname(__file__), "siirler.json")
+SUDO_JSON = os.path.join(os.path.dirname(__file__), "sudo_users.json")
+KANAL_USERNAME = "tubidymusic"  # Kanal kullanıcı adı
+OWNER_IDS = [6289700114, 7426116391]  # Owner ID'lerini buraya virgülle ayırarak ekle
 
-@app.on_message(
-    filters.command(["dokundur", ".dokundur"], prefixes=["/", "."]) & filters.private
-)
-async def dokundur_private(client: Client, message: Message):
-    mention = message.from_user.mention if message.from_user else "Kullanıcı"
-    await message.reply_text(
-        text=random.choice(DOKUNDURMA_MESAJLARI).format(mention=mention),
-    )
+# ---- Yardımcı Fonksiyonlar ----
 
-@app.on_message(filters.command(["dokundur", ".dokundur"]) & filters.group)
-async def dokundur_group(client: Client, message: Message):
-    user_id = message.from_user.id
-    chat_id = message.chat.id
-    
-    try:
-        member = await client.get_chat_member(chat_id, user_id)
-    except Exception:
+def load_json(file_path):
+    if not os.path.exists(file_path):
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump([], f, ensure_ascii=False, indent=2)
+    with open(file_path, "r", encoding="utf-8") as f:
+        try:
+            return json.load(f)
+        except json.JSONDecodeError:
+            return []
+
+def save_json(file_path, data):
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def load_siirler():
+    return load_json(SIIR_JSON)
+
+def save_siirler(siirler):
+    save_json(SIIR_JSON, siirler)
+
+def add_siir(yeni_siir, yazar):
+    siirler = load_siirler()
+    siirler.append({"text": yeni_siir, "author": yazar})
+    save_siirler(siirler)
+
+def load_sudo_users():
+    data = load_json(SUDO_JSON)
+    # Owner ID'leri kesinlikle sudo listesinde olsun
+    for owner in OWNER_IDS:
+        if owner not in data:
+            data.append(owner)
+    return data
+
+def save_sudo_users(data):
+    save_json(SUDO_JSON, data)
+
+def siir_footer():
+    return f"\n\n—\n🖋 @{KANAL_USERNAME}"
+
+# ---- Komutlar ----
+
+@app.on_message(filters.command(["sudoadd"]) & filters.user(OWNER_IDS))
+async def sudoadd_handler(client: Client, message: Message):
+    args = message.text.split()
+    if len(args) != 2:
+        await message.reply("Kullanım: /sudoadd <kullanıcı_id>")
         return
-    
-    if member.status in ["administrator", "creator"]:
-        mention = message.reply_to_message.from_user.mention if message.reply_to_message else ""
-        if mention:
-            reply_msg = await message.reply(f"{mention} {random.choice(DOKUNDURMA_MESAJLARI).format(mention=mention)}")
+
+    try:
+        new_id = int(args[1])
+    except ValueError:
+        await message.reply("Geçerli bir kullanıcı ID'si girin.")
+        return
+
+    sudo_users = load_sudo_users()
+    if new_id in sudo_users:
+        await message.reply("Bu kullanıcı zaten yetkili.")
+        return
+
+    sudo_users.append(new_id)
+    save_sudo_users(sudo_users)
+    await message.reply(f"✅ Kullanıcı ID `{new_id}` yetkililere eklendi.")
+
+@app.on_message(filters.command(["sudoadd"]))
+async def sudoadd_unauthorized(client: Client, message: Message):
+    if message.from_user.id not in OWNER_IDS:
+        await message.reply("❌ Üzgünüm, gerekli yetkilere sahip değilsiniz.")
+
+@app.on_message(filters.command(["şiiradd", ".şiiradd"]))
+async def siir_ekle(client: Client, message: Message):
+    sudo_users = load_sudo_users()
+    user_id = message.from_user.id
+
+    if user_id not in sudo_users:
+        await message.reply("❌ Üzgünüm, gerekli yetkilere sahip değilsiniz.")
+        return
+
+    args = message.text.split(None, 1)
+    if len(args) < 2:
+        await message.reply("❌ Şiiri komuttan sonra yazmalısınız. Örnek:\n/şiiradd Gönül ne kahramanlıklar gördü...")
+        return
+
+    yeni_siir = args[1].strip()
+    if len(yeni_siir) < 10:
+        await message.reply("❌ Çok kısa şiir kabul edilmiyor.")
+        return
+
+    yazar = message.from_user.username or message.from_user.first_name or "Anonim"
+    add_siir(yeni_siir, yazar)
+    await message.reply("✅ Şiir başarıyla eklendi!")
+
+@app.on_message(filters.command(["şiir", ".şiir"]) & (filters.group | filters.private))
+async def siir_gonder(client: Client, message: Message):
+    siirler = load_siirler()
+    if not siirler:
+        await message.reply("❌ Henüz kayıtlı şiir yok.")
+        return
+
+    secilen = random.choice(siirler)
+    siir_metni = secilen["text"]
+    siir_yazar = secilen.get("author", "Anonim")
+
+    text = f"{siir_metni}\n\n—\n✍️ {siir_yazar}{siir_footer()}"
+    await message.reply(text, parse_mode="markdown")
+
+# ---- Otomatik şiir paylaşımı ve oylama (6 saatte 1) ----
+
+from datetime import datetime, timedelta
+
+class SiirOylama:
+    def __init__(self):
+        self.active_votes = {}
+        self.vote_duration = timedelta(hours=6)
+        self.interval = timedelta(hours=6)
+
+    async def start_vote(self):
+        sudo_users = load_sudo_users()
+        siirler = load_siirler()
+        if not siirler:
+            return
+
+        siir = random.choice(siirler)
+        siir_text = siir["text"]
+        siir_author = siir.get("author", "Anonim")
+
+        yetkili_gruplar = []  # Buraya izinli grup ID'lerini ekle
+
+        for gid in yetkili_gruplar:
+            end_time = datetime.now() + self.vote_duration
+            self.active_votes[gid] = {
+                "siir": siir,
+                "yes": set(),
+                "no": set(),
+                "end_time": end_time
+            }
+
+            keyboard = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("👍 Evet", callback_data=f"vote_yes_{gid}"),
+                        InlineKeyboardButton("👎 Hayır", callback_data=f"vote_no_{gid}")
+                    ]
+                ]
+            )
+
+            await app.send_message(
+                gid,
+                f"📜 Yeni şiir oylaması!\n\n{siir_text}\n\n—\n✍️ {siir_author}{siir_footer()}\n\nBu şiiri beğeniyor musunuz?",
+                reply_markup=keyboard,
+                parse_mode="markdown"
+            )
+
+    async def check_votes(self):
+        now = datetime.now()
+        for gid, vote in list(self.active_votes.items()):
+            if now >= vote["end_time"]:
+                yes_count = len(vote["yes"])
+                no_count = len(vote["no"])
+                siir = vote["siir"]
+                siir_text = siir["text"]
+                siir_author = siir.get("author", "Anonim")
+
+                total = yes_count + no_count
+                if total > 0 and yes_count / total >= 0.5:
+                    await app.send_message(
+                        KANAL_USERNAME,
+                        f"🎉 Yeni onaylı şiir:\n\n{siir_text}\n\n—\n✍️ {siir_author}{siir_footer()}",
+                        parse_mode="markdown"
+                    )
+                del self.active_votes[gid]
+
+@app.on_callback_query()
+async def vote_callback(client, callback_query):
+    data = callback_query.data
+    user_id = callback_query.from_user.id
+
+    if data.startswith("vote_yes_") or data.startswith("vote_no_"):
+        gid = int(data.split("_")[-1])
+        if gid not in siir_oylama.active_votes:
+            await callback_query.answer("Oylama sona ermiş.")
+            return
+
+        vote = siir_oylama.active_votes[gid]
+        if user_id in vote["yes"] or user_id in vote["no"]:
+            await callback_query.answer("Zaten oy kullandınız!")
+            return
+
+        if data.startswith("vote_yes_"):
+            vote["yes"].add(user_id)
+            await callback_query.answer("Evet oyunu kullandınız.")
         else:
-            mention = message.from_user.mention if message.from_user else "Yönetici"
-            reply_msg = await message.reply(random.choice(DOKUNDURMA_MESAJLARI).format(mention=mention))
-        
-        await asyncio.sleep(60)
-        try:
-            await reply_msg.delete()
-            await message.delete()
-        except Exception:
-            pass
-    else:
-        reply_msg = await message.reply(
-            "**🚫 Bu komut sadece yöneticiler içindir!**\n\n💬 Bu komutu özel mesajlarda deneyin."
-        )
-        await asyncio.sleep(10)
-        try:
-            await reply_msg.delete()
-        except Exception:
-            pass
+            vote["no"].add(user_id)
+            await callback_query.answer("Hayır oyunu kullandınız.")
+
+siir_oylama = SiirOylama()
+
+async def scheduler():
+    while True:
+        await siir_oylama.start_vote()
+        await asyncio.sleep(6 * 3600)
+
+asyncio.get_event_loop().create_task(scheduler())
 
 if __name__ == "__main__":
     app.run()
 
-__MODULE__ = "Dokundurma"
+__MODULE__ = "Şiir Komutları"
 __HELP__ = """
-**Dokundurma Komutu**
+**Şiir Komutları**
 
-Bu komut özel mesajlarda rastgele sert ve esprili dokundurma mesajları sağlar.  
-Gruplarda ise yalnızca adminler kullanabilir.  
-
-Özellikler:  
-- Botun DM'sinde herkes kullanabilir  
-- Gruplarda sadece adminler/kurucular kullanabilir  
-- Mesajlar gruplarda 1 dakika sonra otomatik silinir  
-- /dokundur ve .dokundur komutlarını destekler  
-
-Komutlar:  
-- /dokundur - Rastgele dokundurma mesajı gönder (DM'de çalışır)  
-- .dokundur - Alternatif komut formatı  
+- /şiir - Rastgele şiir gönderir
+- /şiiradd - Şiir ekleme komutu (sadece yetkililer)
+- /sudoadd - Yetkili ekleme komutu (sadece Ownerlar)
 """
