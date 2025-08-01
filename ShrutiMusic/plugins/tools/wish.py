@@ -276,7 +276,7 @@ async def gtag(_, message: Message):
         return await message.reply(f"⚠️ Başka bir etiketleme zaten aktif: `{active_tag_type(chat_id)}`.")
     active_chats[chat_id] = {"type": "Günaydın", "users_tagged": 0}
     await message.reply("☀️ Günaydın etiketleme başlatıldı...")
-    await tag_users(chat_id, GM_MESSAGES, "Günaydın")
+    await tag_users(chat_id, GTAG_MESSAGES, "Günaydın")
 
 @app.on_message(filters.command("itag") & filters.group)
 async def itag(_, message: Message):
@@ -285,7 +285,7 @@ async def itag(_, message: Message):
         return await message.reply(f"⚠️ Başka bir etiketleme zaten aktif: `{active_tag_type(chat_id)}`.")
     active_chats[chat_id] = {"type": "İyi Geceler", "users_tagged": 0}
     await message.reply("🌙 İyi geceler etiketleme başlatıldı...")
-    await tag_users(chat_id, GN_MESSAGES, "İyi Geceler")
+    await tag_users(chat_id, ITAG_MESSAGES, "İyi Geceler")
 
 @app.on_message(filters.command("stag") & filters.group)
 async def stag(_, message: Message):
