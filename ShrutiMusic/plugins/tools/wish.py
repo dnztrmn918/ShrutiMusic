@@ -2,236 +2,334 @@ import asyncio
 import random
 from pyrogram import filters
 from pyrogram.types import Message
-from ShrutiMusic import app  # Senin pyrogram Client nesnen
+from pyrogram import enums
+from ShrutiMusic import app
 
-# Aktif etiketleme takibi (chat_id: True)
 active_chats = {}
 
-# Mesaj listeleri (her biri 20 mesaj içeriyor, önceki mesajda hazırlandı)
-GM_MESSAGES = [
-    "🌞 Gᴜ̈ɴᴀʏᴅıɴ {mention} ☀️",
-    "🌤️ Hᴀᴅɪ ᴜʏᴀɴ {mention}",
-    "🌸 Gᴜ̈ɴᴇ ʙɪʀɪɴᴄɪ ᴀᴅıᴍ: {mention}",
-    "⏰ Uʏᴀɴᴍᴀ ᴢᴀᴍᴀɴı {mention}",
-    "☕ Kᴀʜᴠᴇᴍ Hᴀᴢıʀ {mention}!",
-    "🌅 Yᴇɴɪ ɢᴜ̈ɴ Yᴇɴɪ ᴜᴍᴜᴛʟᴀʀ",
-    "🌈 Gᴜ̈ɴᴇşʟɪ ʙɪʀ ɢᴜ̈ɴ {mention}!",
-    "🐓 Hᴏʀᴏᴢʟᴀʀ Öᴛᴛᴜ {mention}!",
-    "📣 Sᴇɴsɪᴢ ᴏʟᴍᴀᴢ {mention}!",
-    "🕊️ Hᴜᴢᴜʀʟᴜ sᴀʙᴀʜʟᴀʀ",
-    "📆 Yᴇɴɪ ɢᴜ̈ɴᴇ ʜᴀᴢıʀ ᴍıʏıᴢ {mention}?",
-    "🎉 Eʀᴋᴇɴ ᴋᴀʟᴋᴀɴ ʏᴏʟ ᴀʟıʀ",
-    "🌇 Gᴜ̈ɴᴇ ᴍᴇʀʜᴀʙᴀ ᴅᴇ!",
-    "🌟 Uʏᴀɴᴀʟıᴍ ᴅᴏsᴛʟᴀʀ!",
-    "🚿 Dɪşʟᴇʀɪɴɪ ғıʀçᴀʟᴀ {mention} 😁",
-    "🎶 Mᴜ̈ᴢɪᴋ Aᴄ̧ ᴏʏᴀɴ {mention}",
-    "☀️ Gᴜ̈ɴᴇɴɪɴ ɢᴜ̈ᴢᴇʟ ʙᴀşʟᴀsıɴ!",
-    "📢 Aʏʟᴀɴᴅɪɴɪᴢ ᴍı?",
-    "💼 İşᴇ ɢɪᴅᴇɴʟᴇʀ ᴜʏᴀɴɪɴ",
-    "👀 {mention} Kᴀʟᴋ ʙᴀᴋᴀʟɪᴍ!",
-    "🌞 Hᴇʀ ɢᴜ̈ɴ ʙɪʀ ʏᴇɴɪʟɪᴋ {mention}",
-    "🎯 ɢᴜɴᴀ ᴍᴏᴛɪᴠᴀsʏᴏɴ {mention}",
-    "🌅 Dᴇsᴛᴇᴋʟᴇ ɢᴜ̈ɴ {mention}",
-    "🍃 Sᴀʜᴀʙᴀᴛ ʙɪʀ ɢᴜ̈ɴ ᴏʟsᴜɴ {mention}",
-    "☕️ Kᴀʜᴠᴇ ʟɪᴍᴏɴ ɢᴜ̈ɴᴀ {mention}",
-    "✨ Uʏᴀɴ ᴋᴏɴsᴛʀᴜᴋᴛɪᴠ ʙᴀşʟᴀᴍᴀ {mention}",
-    "🐦 ᴅᴜᴀʟᴀʀ ʙᴇʀᴀᴛ ɢᴜɴ {mention}",
-    "🕊️ Hᴜᴢᴜʀ ᴅᴏʟᴜ {mention}",
-    "🌸 ʙᴀʜᴀʀ ɢᴇʟɪʏᴏʀ {mention}",
-    "🌞 ᴅᴀʜᴀ ɢᴜᴄ̧ʟᴜ ʏᴀʀɪɴʟᴀʀ {mention}",
-    "🎉 ᴜᴍᴜᴛ ᴅᴏʟᴜ ɢᴜ̈ɴʟᴇʀ {mention}",
-    "🌺 ᴅᴇɢ̆ɪşɪᴍ ʙᴀşʟᴀᴍᴀsı {mention}",
-    "🚀 ʙᴀşᴀʀıʟᴀʀ ʙɪʀ ᴀᴅıᴍ ᴅᴀʜᴀ {mention}",
-    "🌞 ʜᴀʀɪᴋᴀ ʙɪʀ ɢᴜ̈ɴ {mention}",
-    "🍀 şᴀɴsʟı ɢᴜ̈ɴʟᴇʀ {mention}",
-    "🌻 ʙɪʀ ɢᴜ̈ɴ ᴅᴀʜᴀ ʙᴀşʟᴀɴɢıᴄ̆ {mention}",
-    "🎶 ʍᴜᴢɪᴋ ᴅᴏʟᴜ ɢᴜ̈ɴ {mention}",
-    "☀️ ᴍᴏᴛɪᴠᴀsʏᴏɴ ɪçɪɴ ʙɪʀ ᴀᴅıᴍ {mention}",
-    "💪 ʙᴀşᴀʀı ɪçɪɴ ᴅᴏʏᴀᴍ {mention}",
-    "🌞 ɢᴜɴʟᴇʀ ɢᴜ̈ᴢᴇʟ ᴏʟsᴜɴ {mention}",
-    "🌈 ʜᴀʀɪᴋᴀ ʙɪʀ ɢᴜ̈ɴ ᴅɪʟᴇʏᴇʟɪᴍ {mention}",
-    "✨ ɢᴜɴʏᴜᴢ ʜᴀʀɪᴋᴀ ʙɪʀ ɢᴜ̈ɴ {mention}",
-    "🌅 ʏᴇɴɪ ᴜᴍᴜᴛʟᴀʀ ɪçɪɴ ʙᴀşʟᴀ {mention}",
-    "🔥 ɢᴜɴ ᴅᴏʟᴜ ᴇɴᴇʀᴊɪ {mention}",
-    "🎉 ᴇɴ ɢᴜᴢᴇʟ ɢᴜ̈ɴʟᴇʀ {mention}",
-    "🌞 ɢᴜ̈ɴ ᴅᴏʟᴜ ɢᴜ̈ᴄ̧ {mention}",
-    "🎈 ᴏʏʟᴀʀ ᴋᴀᴛ {mention}"
+# gtag - Günaydın Etiketleri (50 adet)
+GTAG_MESSAGES = [
+    "🌞 {mention}, uyan artık! Güneşi sen mi bekliyorsun?",
+    "☕ Kahveni hazırla, {mention}, çünkü bugün harika geçecek!",
+    "🐓 {mention}, horoz bile seni geçti, hadi kalk!",
+    "🌅 Yeni güne merhaba de, {mention}!",
+    "📢 Alarm çaldı, uyanma vakti {mention}!",
+    "🍳 Kahvaltı sofrası seni bekliyor, {mention}!",
+    "🌈 Güne pozitif başla, {mention}!",
+    "🌻 Gülümse, hayat güzel, {mention}!",
+    "🦄 Bugün mucizeler günü, kaçırma {mention}!",
+    "🎉 Günaydın {mention}, enerji sende mi?",
+    "🛌 Uykunun sonu geldi {mention}, artık kalk!",
+    "🎵 Güne güzel bir melodiyle başla, {mention}!",
+    "🦋 Hayat kısa, kahveni al ve gülümse {mention}!",
+    "🌞 Güneş doğdu, sen nerdesin {mention}?",
+    "🥐 Kahvaltı hazırsa, haydi {mention}!",
+    "🚀 Bugün yıldız gibi parlamaya hazır mısın {mention}?",
+    "🥳 Güne neşe kat, {mention}!",
+    "📅 Yeni bir gün, yeni fırsatlar, {mention}!",
+    "🌸 Bahar geldi, uyan {mention}!",
+    "☀️ Enerjini topla, {mention}!",
+    "🍯 Tatlı bir gün olsun {mention}!",
+    "🐝 Uyan ve üret, {mention}!",
+    "🌤️ Gökyüzü senin için parlıyor, {mention}!",
+    "🏞️ Doğa seni çağırıyor, kalk {mention}!",
+    "🎨 Bugün hayatını renklendir, {mention}!",
+    "💪 Güç sende, uyan {mention}!",
+    "📖 Yeni bir sayfa aç, {mention}!",
+    "🌷 Günaydın, {mention}, taze bir başlangıç!",
+    "🦚 Bugün kendine iyi bak, {mention}!",
+    "🍓 Tatlı anlar seni bekliyor, {mention}!",
+    "🕊️ Huzurla uyan {mention}!",
+    "☁️ Bulutların üstünde hisset kendini, {mention}!",
+    "🎯 Hedeflerine odaklan, {mention}!",
+    "🍃 Derin nefes al, {mention}!",
+    "🥰 Gülümse, dünya daha güzel seninle {mention}!",
+    "🌟 Bugün parlamaya hazırsın, {mention}!",
+    "📢 Sesin duyulsun, {mention}!",
+    "🌼 Sabah çiçekleri gibi aç {mention}!",
+    "🧩 Her şey yerli yerinde, sadece kalk {mention}!",
+    "🍋 Limonata gibi taze başla, {mention}!",
+    "🌙 Gece bitti, gündüz başladı {mention}!",
+    "🐣 Yeni bir başlangıç seni bekliyor, {mention}!",
+    "🍂 Sonbahar rüzgarı gibi hafif uyan, {mention}!",
+    "🎈 Hayat kısa, bugün başla {mention}!",
+    "🦄 Hayal et ve gerçekleştir, {mention}!",
+    "🌺 Yeni umutlarla dolu bir gün {mention}!",
+    "🎇 Enerjinle etrafını aydınlat {mention}!",
+    "🥁 Ritmini yakala, {mention}!",
+    "🌳 Kendine zaman ayır, {mention}!",
+    "🌞 Güne pozitif başla, {mention}!"
 ]
 
-GN_MESSAGES = [
-    "🌙 İʏɪ Gᴇᴄᴇʟᴇʀ {mention}", "💤 Tᴀᴛʟı ʀᴜʏᴀʟᴀʀ {mention}", "🌌 Gᴇᴄᴇɴɪɴ sᴀᴋɪɴʟɪɢ̆ɪ ᴛᴀʀᴀғıɴᴅᴀ",
-    "🛏️ Uʏᴋᴜ Zᴀᴍᴀɴı {mention}", "🧸 Sᴀɴᴀ ʙɪʀ ᴍᴀsᴀʟ", "🌠 Hᴀʏᴀʟʟᴀʀıɴ ɢᴜ̈ᴢᴇʟ ᴏʟsᴜɴ",
-    "🎧 Hᴀfɪғ ᴍᴜ̈ᴢɪᴋ ᴀç ᴜʏᴋᴜʏᴀ ᴅᴀʟ", "📚 Kɪᴛᴀᴘʟᴀʀɪɴı Kᴀᴘᴀᴛ {mention}",
-    "💤 Zᴢᴢ... Gᴇᴄᴇʏɪ ᴘᴀʀʟᴀᴛᴀɴ ᴋᴀɴᴀᴛʟᴀʀ", "🐑 Bɪʀ, ɪᴋɪ, ᴜ̈ç... Uʏᴋᴜɴ ɢᴇʟᴅɪ ᴍɪ?",
-    "🕯️ Lᴀᴍʙᴀʏı sᴏ̈ɴᴅᴜ̈ʀ {mention}", "🌜 Mᴇʜᴛᴀᴘ ᴀʟᴛɪɴᴅᴀ ʜᴜᴢᴜʀ", "😴 Kᴀғᴀɴı ʏᴀsʟᴀ ʀᴀʜᴀᴛʟᴀ",
-    "⏳ Yᴀʀıɴᴀ ᴋᴀᴅᴀʀ ᴠᴇᴅᴀ", "🖤 Gᴇᴄᴇʟᴇʀɪɴ ᴛᴇɴʜᴀ ʜᴜᴢᴜʀᴜ", "🪶 Uʏᴋᴜ ᴘᴇʀɪʟᴇʀɪ sᴇɴɪɴʟᴇ",
-    "👁️‍🗨️ Kᴀᴘᴀɴɪ ɢᴏ̈ᴢʟᴇʀɪɴɪɴ ᴅᴇʀɪɴʟɪɢ̆ɪɴᴇ", "💤 İʏɪ ᴅɪɴʟᴇɴᴍᴇʟᴇʀ", "🐱 Kᴇᴅɪ sᴇɴɪɴʟᴇ ᴜʏᴜʏᴏʀ",
-    "🎈 Rᴜʏᴀʟᴀʀ ᴀʟᴇᴍɪɴᴇ ʏᴏʟᴄᴜʟᴜᴋ", "🌛 Sᴇs sᴇsᴛɪᴋᴄᴇ ɢᴇᴄᴇ", "🌌 Hᴀʀɪᴋᴀ ʙɪʀ ʀᴜʏᴀ {mention}",
-    "✨ ʙɪʀ ɢᴜɴ ᴅᴀʜᴀ ʜᴏʀɪᴢᴏɴᴇ ᴇᴋʟᴇ", "🛌 Dᴇʀɪɴ ᴜʏᴋᴜʏᴀ ᴅᴀʟ", "💤 Yᴜᴍᴜşᴀᴋ ᴘᴇʀɪsᴛᴇʀ",
-    "🌜 ɢᴇᴄᴇɴɪɴ ᴍᴀɢɪᴄɪ {mention}", "🦉 Sᴇs ᴏʟᴍᴀʏᴀ ᴅᴏғᴍᴏᴋ", "💫 ɢᴇᴄᴇ ʙᴏʏᴜ ʜᴀʏᴀʟʟᴀʀ",
-    "🕯️ ᴅᴇʀɪɴ sᴇsɪɴᴅᴇ ᴅɪɴʟᴇɴ", "🌉 Sᴇsʟᴇʀ ɪçɪɴᴅᴇ ʏᴏʟʟᴀʀ", "🛏️ ᴛᴀᴛʟı ᴅᴜ̈şʟᴇʀ ᴅɪʟᴇɴᴇɴ",
-    "🌠 ɢᴇᴄᴇ ᴜʏᴋᴜsᴜ ɢᴜᴛʟᴜ ᴏʟsᴜɴ", "🦄 Dɪɢ̆ᴇʀ ᴅᴜɴʏᴀʟᴀʀ ɢᴇʟsɪɴ", "✨ ʜᴀʀɪᴋᴀ ʀᴜʏᴀʟᴀʀ ɢᴏʀ",
-    "🌌 Yᴜᴍᴜşᴀᴋ ᴘᴇʀɪʟᴇʀ {mention}", "🧸 ᴛᴀᴛʟı ʀᴜʏᴀʟᴀʀ ᴅɪʟᴇ", "🌙 ɢᴇᴄᴇɴɪɴ sᴇsɪɴᴅᴇ ʜᴜᴢᴜʀ",
-    "🛏️ ᴅɪɴʟᴇɴ ʙɪʀ ɢᴇᴄᴇ ᴅɪʟᴇ", "💤 Sᴀɴᴀ ʙɪʀ ᴅᴇʀɪɴ ᴜʏᴋᴜ", "🌠 ᴅɪɴʟᴇɴᴍᴇ sᴀʜɪʙɪ {mention}",
-    "🌙 ɢᴇᴄᴇɴɪɴ ᴋᴀʀᴛᴀʟɪ ᴏʟ", "✨ Sᴇʀɪɴ ʀᴜʏᴀʟᴀʀ", "🌌 ᴛᴀᴛʟı ᴅᴜ̈şʟᴇʀ ɢᴇᴛɪʀ",
-    "💤 ʜᴀʀɪᴋᴀ ɢᴇᴄᴇʟᴇʀ {mention}", "🌙 Sᴀɴᴀ ʙɪʀ ɢᴇᴄᴇ sᴇʀᴛɪ ғᴜᴊɪ", "🌟 ᴜᴍᴜᴛɪɴ ᴋᴀʀᴀɴʟɪɢɪɴᴅᴀ",
-    "🛏️ ᴅᴇʀɪɴ ᴜʏᴋᴜʏᴀ ᴅᴀʟ {mention}"
+# itag - İyi Geceler Etiketleri (50 adet)
+ITAG_MESSAGES = [
+    "🌙 {mention}, gözlerini kapat ve güzel rüyalar gör!",
+    "🛌 Uykunun kollarına bırak kendini {mention}!",
+    "😴 Haydi uyu {mention}, sabah yine gelecek!",
+    "🌌 Yıldızlar seni korusun, {mention}!",
+    "🕯️ Mum ışığında huzur dolu bir gece {mention}!",
+    "🐑 Koyun saymayı bırak, uyu {mention}!",
+    "🌠 Rüyanda en güzel maceraları yaşa {mention}!",
+    "🎭 Hayallerin sahnesi seni bekliyor, {mention}!",
+    "💤 Tatlı uykular {mention}!",
+    "📵 Telefonu kapat, dinlen {mention}!",
+    "🌺 Gece çiçekleri gibi huzurlu uyu {mention}!",
+    "🦉 Geceyi kuşlar gibi sessiz geçir {mention}!",
+    "🛸 Rüyanda uzay yolculuğu yap {mention}!",
+    "🎇 Geceyi yıldızlarla süsle {mention}!",
+    "💫 Hayal gücünü serbest bırak {mention}!",
+    "🌜 Ay ışığı gibi sakin uyu {mention}!",
+    "🌹 Tatlı rüyalarla dolu olsun gecen {mention}!",
+    "🔥 Ateş böcekleri kadar parlak uyu {mention}!",
+    "🎶 Ninni gibi huzurlu uyu {mention}!",
+    "🌃 Gece sana iyi gelsin {mention}!",
+    "🌟 Yıldızlar seninle parlasın {mention}!",
+    "🦋 Rüyaların kelebekler gibi hafif olsun {mention}!",
+    "🍵 Sıcak bir çay eşliğinde uyu {mention}!",
+    "🛏️ Rahat bir uyku çek {mention}!",
+    "💤 Uykunun tadını çıkar {mention}!",
+    "🌙 Huzurla dolu geceler {mention}!",
+    "🦇 Karanlıkta kaybolma, iyi uyu {mention}!",
+    "🌌 Evren seninle {mention}!",
+    "🛡️ Rüyalarında korun {mention}!",
+    "🌠 Gökyüzüne uzan, güzel uyu {mention}!",
+    "🦉 Gecenin bilgeliği seninle olsun {mention}!",
+    "🎇 Uykun ışık saçsın {mention}!",
+    "🌜 Hayallerin gerçek olsun {mention}!",
+    "🎵 Uyku melodisi eşlik etsin {mention}!",
+    "🦄 Rüyanda sihir olsun {mention}!",
+    "🌷 Gece bahçesinde yürüyüş yap {mention}!",
+    "💤 Sakin ve derin uyu {mention}!",
+    "🌺 Tatlı rüyalarla uyan {mention}!",
+    "🌙 Yıldız tozları düşsün rüyana {mention}!",
+    "🍂 Sonbahar yaprakları gibi huzurlu uyu {mention}!",
+    "🛌 Günün stresini unut, uyu {mention}!",
+    "💫 Rüyanda parılda {mention}!",
+    "🦉 Gece senin arkadaşın {mention}!",
+    "🌌 Uykun evrene yayılsın {mention}!",
+    "🕯️ Huzurlu uyku seni sarsın {mention}!",
+    "🎇 Geceyi kutla, uyu {mention}!",
+    "💤 Rüyaların en tatlısı olsun {mention}!",
+    "🌙 Tatlı düşler gör {mention}!",
+    "🛏️ Uykunun krallığına hoş geldin {mention}!"
 ]
 
-ST_MESSAGES = [
-    "💬 Sᴏʜʙᴇᴛ ᴠᴀʀ! {mention}", "📢 Sᴇɴsɪᴢ ᴏʟᴍᴀᴢ {mention}", "🔥 Kᴏɴᴜ Aᴄ̧ıʟᴅı, Gᴇʟ!",
-    "💭 ʙɪʀ ғɪᴋɪʀɪɴ ᴠᴀʀ mı?", "🗣️ Sᴏ̈ᴢ sɪʀᴀsı sᴇɴᴅᴇ!", "🎤 Mɪᴋʀᴏғᴏɴ sᴇɴᴅᴇ",
-    "👀 Hᴇʀᴋᴇs sᴇɴɪ ʙᴇᴋʟɪʏᴏʀ", "📱 Tᴇʟᴇғᴏɴᴜ ᴇʟɪɴᴇ ᴀʟ", "🫣 Sᴀᴋʟᴀɴᴍᴀ, Gᴇʟ",
-    "🍿 Mᴇʀᴀᴋ ᴇᴛᴛɪᴋ ʏᴀ, Gᴇʟ ᴀɴʟᴀᴛ", "📲 ᴀᴋᴛɪғ ᴏʟ", "🎯 Kᴏɴᴜʏᴀ ᴅᴀʜɪʟ ᴏʟ",
-    "⚡ Gᴇʟɪɴʟᴇʀ Gᴇʟɪɴʟᴇʀ", "🥳 Sᴏʜʙᴇᴛᴇ Nᴇşe Kᴀᴛ", "🎮 Gᴇʟ ʙɪʀ ᴏʏᴜɴ ᴏʏɴᴀʏᴀʟıᴍ",
-    "🧠 Zᴇᴋᴀ Sᴀᴠᴀşɪ ʙᴀşʟɪʏᴏʀ", "📷 Sᴏʜʙᴇᴛᴇ ғᴏᴛᴏ ᴀᴛ", "🎵 Mᴜ̈ᴢɪᴋᴛᴇɴ sᴏ̈ᴢ ᴀᴄ̧",
-    "🔔 Hᴀᴅɪ Kᴀᴛıʟ", "🧩 Sᴏʀᴜ Cᴇᴠᴀᴘ ʙᴀşʟᴀᴅı!", "🌟 Hᴇʀᴋᴇs ʙɪʀ ʙɪʀʟɪᴋᴛᴇ!",
-    "🚀 Sᴏʜʙᴇᴛ ʙᴀşʟᴀʏᴏʀ", "💬 Hᴇʀ ɢᴜɴ ʏᴇɴɪ ᴋᴏɴᴜʟᴀʀ", "🎉 Nᴇşᴇʟɪ ɢᴜ̈ɴʟᴇʀ {mention}",
-    "📢 Sᴏʜʙᴇᴛ ʜᴇʀ ᴋᴇs ɪçɪɴ", "🔥 Aᴋᴛɪғ ᴏʟ {mention}", "🗣️ ᴋᴀᴛıʟıᴍ ᴄᴀɢ̆ʀısı",
-    "🎤 ᴍɪᴋʀᴏғᴏɴ ᴇʟɪᴍᴅᴇ", "🕺 ʜᴀʀɪᴋᴀ ᴠᴀʪᴇᴛʟᴇʀ", "🎮 Oʏᴜɴ ᴠᴀʀ!",
-    "✨ Sᴏʜʙᴇᴛ ɢᴇʟɪʏᴏʀ", "🍿 ʙɪʀʟɪᴋᴛᴇ ᴅᴀʜᴀ ғᴜɴ!", "🔔 ᴅɪʟ ᴋᴜᴛᴜʟᴀʀı ɴᴇ!",
-    "🎉 Yᴇɴɪ ᴀʀᴍᴀɴᴄɪʟᴀʀ", "🧠 ᴢᴇᴋᴀ ᴋᴀʀşɪʟᴀşᴍᴀsı", "🕺 ɢᴇʟ ᴋᴀᴛıʟ!",
-    "📢 ᴅɪʟ ᴋᴜᴛʜᴜʟᴀʀı ᴀç", "🎲 Oʏᴜɴ ᴠᴀʀ", "🎤 Sᴏʜʙᴇᴛ ᴏʏɴᴀʏᴀʟıᴍ",
-    "💥 Sᴏʜʙᴇᴛ ʙᴀşʟᴀᴅı", "🌟 ʜᴇʀᴋᴇs ʙɪʀʟɪᴋᴛᴇ", "📣 Dᴇsᴛᴇᴋ ɪçɪɴ ʙᴜʟᴜɴ",
-    "🎉 ᴅᴇɴᴇɴɪᴢ!", "🤩 Sᴏʜʙᴇᴛᴇ ɢᴇʟ", "🚀 Hᴇʀᴋᴇs ʙᴜʟᴜsᴜʀ",
-    "🎶 Mᴜ̈ᴢɪᴋ ᴀç", "💬 Hᴇʀ ɢᴜɴ ʏᴇɴɪʟɪᴋ", "🕹️ ᴏʏᴜɴ ɢᴇʟɪʀ",
-    "⚡ ᴀᴋᴛɪғ ᴏʟ!", "🗨️ Kᴀᴛıʟ ʜᴀᴢıʀʟᴀɴ!", "🎈 Sᴏʜʙᴇᴛ ʜᴀᴢıʀ",
-    "🌞 ɢᴜɴᴀʏᴅıɴ ɢᴜʀᴜʙ", "🌜 ɢᴇᴄᴇ ɢᴜʀᴜʙ", "🧩 ʙɪʀʟɪᴋᴛᴇ ᴏʏɴᴀʏᴀʟıᴍ"
+# stag - Sohbete Çağırma Etiketleri (50 adet)
+STAG_MESSAGES = [
+    "🎉 Hey {mention}, sohbet başlıyor, gel katıl!",
+    "📢 {mention}, sessiz kalma, buradayız!",
+    "🔥 {mention}, seni bekliyoruz, hadi gel!",
+    "💬 Sohbet ateşi yanıyor, {mention}!",
+    "🎊 Eğlence başlasın, {mention} buraya!",
+    "🚀 {mention}, sohbet gemisi kalkıyor!",
+    "🎈 {mention}, muhabbet zamanı!",
+    "📣 Sesini duyur, {mention}!",
+    "🌟 Sen olmadan eksik kalırız {mention}!",
+    "💥 Hadi bakalım {mention}, sohbet zamanı!",
+    "🎤 Mikrofon sende, {mention}!",
+    "🕺 Dans etmeye gerek yok, sadece konuş {mention}!",
+    "🍿 Sohbet patlaması için hazır ol {mention}!",
+    "🎮 Oyun bitti, şimdi muhabbet vakti {mention}!",
+    "💌 Sohbet daveti, {mention}!",
+    "🎭 Rolünü al, {mention}, konuşma zamanı!",
+    "📚 Hikayelerini paylaş, {mention}!",
+    "🎉 Parti burada, katıl {mention}!",
+    "🌈 Renkli sohbetlere gel {mention}!",
+    "🎬 Sohbet filmi başladı, {mention}!",
+    "🎯 Hedef: Muhabbet, {mention}!",
+    "🥳 Bugün senin günün, gel {mention}!",
+    "🗣️ Söyleyeceklerin var mı {mention}?",
+    "🎶 Sohbetin ritmini yakala {mention}!",
+    "🦄 Sıradışı konuşmalar için buradayız {mention}!",
+    "🌞 Günün en güzel sohbeti seni bekliyor {mention}!",
+    "🌻 Enerjini kat, {mention}!",
+    "🛎️ Zil çaldı, muhabbet başladı {mention}!",
+    "🌍 Dünya durdu, sohbet başladı {mention}!",
+    "🧩 Eksik parçamsın, gel {mention}!",
+    "🎉 Kutlama zamanı, muhabbet seni çağırıyor {mention}!",
+    "🔥 Ateşi yak, {mention}!",
+    "🎤 Söz sende, {mention}!",
+    "💥 Muhabbet bombası, patlat {mention}!",
+    "🍰 Tatlı sözler için buradayız {mention}!",
+    "🥂 Sohbet kadehi kaldırıldı, gel {mention}!",
+    "🎯 Hadi odaklan, {mention}!",
+    "💫 Muhabbet yıldızı ol {mention}!",
+    "🎭 Maskeni çıkar, gerçek sen ol {mention}!",
+    "🎉 Eğlence başlasın, {mention}!",
+    "🌟 Parla, ışılda {mention}!",
+    "📢 Sesin çok önemli, duyur {mention}!",
+    "🌈 Muhabbet gökkuşağına katıl {mention}!",
+    "🚀 Sohbet roketi kalkıyor {mention}!",
+    "🦄 Sen olunca her şey daha güzel {mention}!",
+    "🎤 Konuşma mikrofonu senin, {mention}!",
+    "🎉 Hadi şimdi senin zamanın, {mention}!",
+    "🎯 Muhabbet hedefi: {mention}!",
+    "🥳 Bugün senin günü, gel {mention}!",
+    "🎶 Ritim senin, sohbet senin {mention}!",
+    "🔥 Ateşi yak, muhabbeti başlat {mention}!"
 ]
 
-KT_MESSAGES = [
-    "🐺 Kᴜʀᴛʟᴀʀ ᴀʀᴀsıɴᴅᴀsıɴ {mention}", "🌕 Aʏ ʏᴜ̈ᴋsᴇʟɪʏᴏʀ", "💀 Kɪᴍ Kɪᴍɪ ʏɪʏᴇᴄᴇᴋ?",
-    "🔪 Rᴏʟʟᴇʀ ᴅᴀɢ̆ıᴛıʟᴅı", "🧛 Vᴀᴍᴘɪʀʟᴇʀ ʜᴀʀᴇᴋᴇᴛᴇ ɢᴇçᴛɪ", "🔍 Dᴇᴛᴇᴋᴛɪғ ɪş ʙᴀşɪɴᴅᴀ",
-    "🎭 Hᴇʀ ᴋᴇş ʙɪʀ ʀᴏʟᴅᴇ", "⏳ Gᴇᴄᴇ ᴏʟᴅᴜ, Sᴜsᴜɴ!", "☀️ Gᴜ̈ɴᴅᴜᴢ Gᴇʟᴅɪ, Oʏʟᴀᴍᴀ Bᴀşʟᴀᴅı",
-    "👁️ Sᴇɴɪɴ Rᴏʟᴜ̈ɴɴᴇ Nᴇ?", "🔥 Aᴛᴇş ʏᴀɴᴅı, Kɪᴍ Yᴀɴᴀᴄᴀᴋ?", "🐺 Rᴏʟʟᴇʀ ʙᴇʟɪʀʟᴇɴᴅɪ",
-    "🗡️ Kᴜʀᴛʟᴀʀ ʙᴀᴛʟᴀşıyor", "🌑 Gᴇᴄᴇ ʙᴀşʟᴀᴅı", "🦴 Kᴇᴍɪᴋʟᴇʀ ᴛᴏᴘʟᴀɴıʏᴏʀ",
-    "🦉 Gᴇᴄᴇ ʙᴇᴋçɪsɪ ᴜʏᴀɴıʏᴏʀ", "💀 Kᴀᴛɪʟ ᴍᴀsᴋᴇsɪɴɪ ᴛᴀᴋᴛı", "🧙‍♂️ Cᴀdı ʙüyüsüɴü ʜᴀᴢıʀʟa",
-    "🌕 Dᴏʟᴜɴᴀʏ ᴢᴀᴍᴀɴı {mention}", "🔮 Kᴇʜᴀɴᴇᴛ ʙᴀşʟᴀᴅı", "👥 Oʏᴜɴᴄᴜʟᴀʀ ᴛᴏᴘʟᴀɴᴅı",
-    "🦴 Kᴇᴍɪᴋʟᴇʀɪɴ sᴇsɪ ɢᴇʟᴅɪ", "🔥 Aᴛᴇş ʏᴀɴᴅı, oʏᴜɴ ʙᴀşʟᴀᴅı", "🕵️ Dᴇᴅᴇᴋᴛɪғ ɪş ʙᴀşɪɴᴅᴀ",
-    "🎭 Rᴏʟʟᴇʀ ᴅᴀɢ̆ıᴛıʟᴅı, ʜᴀᴢıʀ ᴏʟ", "⏰ Zᴀᴍᴀɴ ᴅᴀʀᴀʟɪʏᴏʀ", "👁️ Göᴢʟᴇʀ üᴢᴇʀɪɴɪᴢᴅᴇ",
-    "🌲 Oʀᴍᴀɴᴅᴀ sᴇssɪzʟɪᴋ ʜᴀᴋɪᴍ", "🐺 Kᴜʀᴛ ᴜʟᴜʏᴏʀ", "🩸 Kᴀɴ ᴋᴏᴋᴜsᴜ ᴠᴀʀ",
-    "🦇 Vᴀᴍᴘɪʀ ɢɪᴢʟᴇɴɪʏᴏʀ", "🧟 Zᴏᴍʙɪ ʜᴀʀᴇᴋᴇᴛ ᴇᴅɪʏᴏʀ", "🎲 Şᴀɴs sᴇɴᴅᴇ {mention}",
-    "⚔️ Kɪʟɪç çᴇᴋɪʟᴅɪ", "🎯 Hᴇᴅᴇғ ʙᴇʟʟɪ", "🧛 Kᴀʀᴀɴʟıᴋ ɢüçʟᴇʀ ᴜʏᴀɴıʏᴏʀ",
-    "🕸️ Ağʟᴀʀ ᴋᴜʀᴜʟᴅᴜ", "🕷️ Tᴜᴢᴀᴋʟᴀʀ ʜᴀᴢıʀ", "🌌 Gᴇᴄᴇ sᴏɴᴀ ᴇʀɪʏᴏʀ",
-    "☀️ Güɴᴇş ᴅᴏğᴜʏᴏʀ, ʏᴇɴɪ ɢüɴ", "👑 Lɪᴅᴇʀ sᴇçɪʟɪʏᴏʀ", "🎤 Kᴏɴᴜşᴍᴀ ᴢᴀᴍᴀɴı",
-    "🔒 Kᴀᴘıʟᴀʀ ᴋᴀᴘᴀɴᴅı", "🚪 Çıᴋış ʏᴏʟᴜ ᴀʀıʏᴏʀʟᴀʀ", "⚡ Eʟᴇᴋᴛʀɪᴋ ᴋᴇsɪʟᴅɪ",
-    "🎯 Hᴇᴅᴇғɪ ᴠᴜʀ", "🧠 Zᴇᴋᴀ sᴀᴠᴀşɪ ʙᴀşʟᴀᴅı", "🔔 Aʟᴀʀᴍ çᴀʟıʏᴏʀ",
-    "🌪️ Fıʀᴛɪɴᴀ ʏᴀᴋʟᴀşɪʏᴏʀ", "🌑 Kᴀʀᴀ ɢᴇᴄᴇ ᴅᴇᴠᴀᴍ ᴇᴅɪʏᴏʀ", "🌟 ʏᴇɴɪ ʀᴏʟʟᴇʀ ᴅᴀɢ̆ıᴛıʟɪʏᴏʀ",
-    "🦴 Kᴇᴍɪᴋʟᴇʀ ʏᴇɴɪᴅᴇɴ ᴛᴏᴘʟᴀɴıʏᴏʀ", "🐺 Kᴜʀᴛ sᴜ̈ʀüsü ʜᴀᴢıʀʟᴀɴıʏᴏʀ", "🔮 Gᴇʟᴇᴄᴇᴋ ᴋᴇʜᴀɴᴇᴛɪ"
+# ktag - Kurt Oyununa Çağırma Etiketleri (50 adet)
+KTAG_MESSAGES = [
+    "🐺 {mention}, kurtlar geceyi bekliyor, gel!",
+    "🌕 Ay doldu, kurtlar uluyor, sen neredesin {mention}?",
+    "🔥 Kamp ateşi yanıyor, kurtlar seni çağırıyor {mention}!",
+    "🎲 Oyun başlasın, kurt takımına katıl {mention}!",
+    "🕵️‍♂️ Gizemli geceye hazır mısın {mention}?",
+    "🌌 Yıldızlar altında kurtlarla oyna {mention}!",
+    "⚔️ Kurtlar savaşı başlıyor, sen de katıl {mention}!",
+    "🎯 Hedef: Kurt olmak, hazır mısın {mention}?",
+    "🎭 Rolünü seç, kurt ol ya da kurtlan {mention}!",
+    "🗡️ Silahlarını kuşan, oyun başlıyor {mention}!",
+    "🐾 Ayak izlerin takipte, dikkat et {mention}!",
+    "🌲 Ormanın derinlikleri seni bekliyor {mention}!",
+    "🌙 Gece kurtlarındır, sen de katıl {mention}!",
+    "🎉 Kurt partisi başladı, gel {mention}!",
+    "🔥 Ateşi harla, takımını kur {mention}!",
+    "🚨 Alarm ver, kurtlar toplanıyor {mention}!",
+    "🎤 Kurt uluması zamanı, ses ver {mention}!",
+    "🦴 Kemiklerinizi hazırla, oyun başlıyor {mention}!",
+    "🕶️ Gizemli kurt, sen neredesin {mention}?",
+    "🌑 Gece karanlık, kurtlar cesur {mention}!",
+    "🏞️ Ormanda macera seni bekliyor {mention}!",
+    "🧩 Bulmacaları çöz, kurt takımını kurtar {mention}!",
+    "🎲 Zar at, kaderin kurt ol {mention}!",
+    "⚡ Gücünü göster, kurt takımına katıl {mention}!",
+    "🌟 Yıldızlar altında takım ol {mention}!",
+    "🐕 Sadık kurtlara katıl {mention}!",
+    "🔥 Ateş çevresinde plan yap {mention}!",
+    "🎯 Doğru kararı ver, kurt kazanır {mention}!",
+    "🕵️ Gizli kurtlar aramızda {mention}!",
+    "🌜 Geceyi fethet, kurt sen ol {mention}!",
+    "🛡️ Koruma zamanın geldi {mention}!",
+    "🎉 Eğlence kurtlarla {mention}!",
+    "⚔️ Savaş zamanı, takımını kur {mention}!",
+    "🎲 Şansını dene, kurt ol {mention}!",
+    "🌲 Orman bekliyor, macera seni çağırıyor {mention}!",
+    "🐺 Uluma zamanı, sesi duyur {mention}!",
+    "🔥 Ateşi yak, takımını topla {mention}!",
+    "🕶️ Kurt kılığına gir {mention}!",
+    "🌙 Ay ışığında buluşalım {mention}!",
+    "🎯 Hedef belirle, oyunu kazan {mention}!",
+    "🦴 Kemiklere sahip çık {mention}!",
+    "🛡️ Kalkanını hazırla, takımını savun {mention}!",
+    "🎤 Uluma sesi gönder {mention}!",
+    "🌟 Yıldızlı gece senin için {mention}!",
+    "🎲 Oyun zarları atıldı {mention}!",
+    "🔥 Ateş başında plan yap {mention}!",
+    "🐾 İzini bırak, iz sürücü ol {mention}!",
+    "⚡ Hızlı ol, kurtlar kazanır {mention}!",
+    "🎭 Maskeni tak, rolüne bürün {mention}!",
+    "🌌 Gece boyunca takım ol {mention}!",
+    "🎉 Kutlama zamanı geldi {mention}!",
+    "🐺 Kurtlar gecesi başladı {mention}!"
 ]
 
-# Kullanıcıları teker teker etiketleme fonksiyonu
-async def tag_users_individual(chat_id, messages, tag_type):
+async def get_chat_users(chat_id):
     users = []
     async for member in app.get_chat_members(chat_id):
         if member.user.is_bot or member.user.is_deleted:
             continue
         users.append(member.user)
-    total = len(users)
+    return users
+
+async def tag_users(chat_id, messages, tag_type):
+    users = await get_chat_users(chat_id)
+    total_users = len(users)
     tagged_count = 0
 
     for user in users:
-        if chat_id not in active_chats:
-            # Durdurma isteği var, çık
+        if chat_id not in active_chats or active_chats[chat_id]["type"] != tag_type:
             break
+        
         mention = f"[{user.first_name}](tg://user?id={user.id})"
         msg = random.choice(messages).format(mention=mention)
-        await app.send_message(chat_id, msg, disable_web_page_preview=True, parse_mode="markdown")
+        
+        await app.send_message(chat_id, msg, disable_web_page_preview=True, parse_mode=enums.ParseMode.MARKDOWN)
+        
         tagged_count += 1
-        await asyncio.sleep(2)  # spam engelleme için bekle
+        active_chats[chat_id]["users_tagged"] = tagged_count
+        
+        await asyncio.sleep(4)
+        
+    active_chats.pop(chat_id, None)
 
-    # Etiketleme tamamlandı mesajı
-    if chat_id in active_chats:
-        del active_chats[chat_id]
-        await app.send_message(
-            chat_id,
-            f"✅ **{tag_type} etiketleme tamamlandı!**\n\n"
-            f"Toplam kullanıcı: {total}\n"
-            f"Etiketlenen kullanıcı: {tagged_count}"
-        )
+    await app.send_message(
+        chat_id,
+        f"✅ {tag_type} etiketleme tamamlandı!\n\n"
+        f"👥 Toplam üye sayısı: {total_users}\n"
+        f"🏷️ Etiketlenen üye sayısı: {tagged_count}"
+    )
 
-# Komutlar
+def is_active_tagging(chat_id):
+    return chat_id in active_chats
+
+def active_tag_type(chat_id):
+    return active_chats[chat_id]["type"] if chat_id in active_chats else None
+
+# Komutlar:
 
 @app.on_message(filters.command("gtag") & filters.group)
-async def gtag_start(_, message: Message):
+async def gtag(_, message: Message):
     chat_id = message.chat.id
-    if chat_id in active_chats:
-        await message.reply("⚠️ Günaydın etiketleme zaten devam ediyor.")
-        return
-    active_chats[chat_id] = True
+    if is_active_tagging(chat_id):
+        return await message.reply(f"⚠️ Başka bir etiketleme zaten aktif: `{active_tag_type(chat_id)}`.")
+    active_chats[chat_id] = {"type": "Günaydın", "users_tagged": 0}
     await message.reply("☀️ Günaydın etiketleme başlatıldı...")
-    await tag_users_individual(chat_id, GM_MESSAGES, "Günaydın")
+    await tag_users(chat_id, GM_MESSAGES, "Günaydın")
 
 @app.on_message(filters.command("itag") & filters.group)
-async def itag_start(_, message: Message):
+async def itag(_, message: Message):
     chat_id = message.chat.id
-    if chat_id in active_chats:
-        await message.reply("⚠️ İyi geceler etiketleme zaten devam ediyor.")
-        return
-    active_chats[chat_id] = True
+    if is_active_tagging(chat_id):
+        return await message.reply(f"⚠️ Başka bir etiketleme zaten aktif: `{active_tag_type(chat_id)}`.")
+    active_chats[chat_id] = {"type": "İyi Geceler", "users_tagged": 0}
     await message.reply("🌙 İyi geceler etiketleme başlatıldı...")
-    await tag_users_individual(chat_id, GN_MESSAGES, "İyi Geceler")
+    await tag_users(chat_id, GN_MESSAGES, "İyi Geceler")
 
 @app.on_message(filters.command("stag") & filters.group)
-async def stag_start(_, message: Message):
+async def stag(_, message: Message):
     chat_id = message.chat.id
-    if chat_id in active_chats:
-        await message.reply("⚠️ Sohbete çağırma etiketleme zaten devam ediyor.")
-        return
-    active_chats[chat_id] = True
-    await message.reply("💬 Sohbete çağırma etiketleme başlatıldı...")
-    await tag_users_individual(chat_id, ST_MESSAGES, "Sohbete Çağırma")
+    if is_active_tagging(chat_id):
+        return await message.reply(f"⚠️ Başka bir etiketleme zaten aktif: `{active_tag_type(chat_id)}`.")
+    active_chats[chat_id] = {"type": "Sohbete Çağırma", "users_tagged": 0}
+    await message.reply("📢 Sohbete çağırma etiketleme başlatıldı...")
+    await tag_users(chat_id, STAG_MESSAGES, "Sohbete Çağırma")
 
 @app.on_message(filters.command("ktag") & filters.group)
-async def ktag_start(_, message: Message):
+async def ktag(_, message: Message):
     chat_id = message.chat.id
-    if chat_id in active_chats:
-        await message.reply("⚠️ Kurt oyunu etiketleme zaten devam ediyor.")
-        return
-    active_chats[chat_id] = True
+    if is_active_tagging(chat_id):
+        return await message.reply(f"⚠️ Başka bir etiketleme zaten aktif: `{active_tag_type(chat_id)}`.")
+    active_chats[chat_id] = {"type": "Kurt Oyunu", "users_tagged": 0}
     await message.reply("🐺 Kurt oyunu etiketleme başlatıldı...")
-    await tag_users_individual(chat_id, KT_MESSAGES, "Kurt Oyunu")
+    await tag_users(chat_id, KTAG_MESSAGES, "Kurt Oyunu")
 
-# Durdurma komutları (birden fazla isimle)
-
-STOP_COMMANDS = ["stopall", "gmstop", "istop", "ststop", "kstop", "iptal", "cancel", "durdur"]
-
-@app.on_message(filters.command(STOP_COMMANDS) & filters.group)
+# Durdurma komutları
+@app.on_message(filters.command(["dur", "durdur", "iptal", "cancel"]) & filters.group)
 async def stop_tagging(_, message: Message):
     chat_id = message.chat.id
-    if chat_id in active_chats:
+    if is_active_tagging(chat_id):
+        etiket_turu = active_tag_type(chat_id)
         del active_chats[chat_id]
-        await message.reply("🛑 Etiketleme durduruldu.")
+        await message.reply(f"🛑 {etiket_turu} etiketleme durduruldu.")
     else:
         await message.reply("❌ Aktif bir etiketleme bulunamadı.")
 
 # Yardım komutu
-
-@app.on_message(filters.command("taghelp") & filters.group)
+@app.on_message(filters.command("etiketyardim") & filters.group)
 async def taghelp(_, message: Message):
     help_text = """
-🏷️ **Etiketleme Komutları Yardımı**
+🏷️ **Etiketleme Komutları**
 
-**🌞 Günaydın:**
-• `/gtag` - Günaydın mesajlarıyla etiketleme başlatır  
-• `/gmstop` - Günaydın etiketlemeyi durdurur
+• `/gtag` - Günaydın etiketlemeyi başlatır  
+• `/itag` - İyi geceler etiketlemeyi başlatır  
+• `/stag` - Sohbete çağırma mesajları ile etiketler  
+• `/ktag` - Kurt oyununa çağırma mesajları ile etiketler  
 
-**🌙 İyi Geceler:**
-• `/itag` - İyi geceler mesajlarıyla etiketleme başlatır  
-• `/istop` - İyi geceler etiketlemeyi durdurur
+• `/dur` veya `/durdur` veya `/iptal` veya `/cancel` - Aktif etiketlemeyi durdurur  
+• `/etiketyardim` - Bu yardım mesajını gösterir  
 
-**💬 Sohbete Çağırma:**
-• `/stag` - Sohbete çağırma başlatır  
-• `/ststop` - Sohbete çağırmayı durdurur
-
-**🐺 Kurt Oyunu:**
-• `/ktag` - Kurt oyununa özel etiketleme başlatır  
-• `/kstop` - Kurt etiketlemeyi durdurur
-
-**🛑 Genel:**
-• `/stopall`, `/iptal`, `/cancel`, `/durdur` - Tüm etiketlemeleri durdurur  
-• `/taghelp` - Bu yardım mesajını gösterir
-
-📌 *Not:* Her sohbette aynı anda yalnızca bir etiketleme aktif olabilir.
+**Not:** Aynı anda sadece bir etiketleme aktif olabilir.
 """
     await message.reply(help_text)
