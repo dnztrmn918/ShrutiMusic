@@ -2,17 +2,17 @@ import random
 import json
 import os
 import asyncio
+from datetime import datetime, timedelta
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from ShrutiMusic import app
+from ShrutiMusic import app  # Senin mevcut Pyrogram Client örneğin
 
 SIIR_JSON = os.path.join(os.path.dirname(__file__), "siirler.json")
 SUDO_JSON = os.path.join(os.path.dirname(__file__), "sudo_users.json")
 KANAL_USERNAME = "tubidymusic"  # Kanal kullanıcı adı
-OWNER_IDS = [6289700114, 7426116391]  # Owner ID'lerini buraya virgülle ayırarak ekle
+OWNER_IDS = [6289700114, 7426116391]  # Owner ID'leri
 
-# ---- Yardımcı Fonksiyonlar ----
-
+# -- JSON yükle/kaydet yardımcı fonksiyonları --
 def load_json(file_path):
     if not os.path.exists(file_path):
         with open(file_path, "w", encoding="utf-8") as f:
@@ -40,7 +40,6 @@ def add_siir(yeni_siir, yazar):
 
 def load_sudo_users():
     data = load_json(SUDO_JSON)
-    # Owner ID'leri kesinlikle sudo listesinde olsun
     for owner in OWNER_IDS:
         if owner not in data:
             data.append(owner)
@@ -52,7 +51,7 @@ def save_sudo_users(data):
 def siir_footer():
     return f"\n\n—\n🖋 @{KANAL_USERNAME}"
 
-# ---- Komutlar ----
+# -- Komutlar --
 
 @app.on_message(filters.command(["sudoadd"]) & filters.user(OWNER_IDS))
 async def sudoadd_handler(client: Client, message: Message):
@@ -116,17 +115,14 @@ async def siir_gonder(client: Client, message: Message):
     siir_yazar = secilen.get("author", "Anonim")
 
     text = f"{siir_metni}\n\n—\n✍️ {siir_yazar}{siir_footer()}"
-    await message.reply(text, parse_mode="markdown")
+    await message.reply(text, parse_mode="Markdown")  # Burada "Markdown" büyük harfle
 
-# ---- Otomatik şiir paylaşımı ve oylama (6 saatte 1) ----
-
-from datetime import datetime, timedelta
+# -- Otomatik şiir paylaşımı ve oylama (6 saatte 1) --
 
 class SiirOylama:
     def __init__(self):
         self.active_votes = {}
         self.vote_duration = timedelta(hours=6)
-        self.interval = timedelta(hours=6)
 
     async def start_vote(self):
         sudo_users = load_sudo_users()
@@ -138,7 +134,7 @@ class SiirOylama:
         siir_text = siir["text"]
         siir_author = siir.get("author", "Anonim")
 
-        yetkili_gruplar = []  # Buraya izinli grup ID'lerini ekle
+        yetkili_gruplar = []  # Buraya oy kullanılacak grup ID'lerini ekle
 
         for gid in yetkili_gruplar:
             end_time = datetime.now() + self.vote_duration
@@ -162,7 +158,7 @@ class SiirOylama:
                 gid,
                 f"📜 Yeni şiir oylaması!\n\n{siir_text}\n\n—\n✍️ {siir_author}{siir_footer()}\n\nBu şiiri beğeniyor musunuz?",
                 reply_markup=keyboard,
-                parse_mode="markdown"
+                parse_mode="Markdown"
             )
 
     async def check_votes(self):
@@ -180,9 +176,11 @@ class SiirOylama:
                     await app.send_message(
                         KANAL_USERNAME,
                         f"🎉 Yeni onaylı şiir:\n\n{siir_text}\n\n—\n✍️ {siir_author}{siir_footer()}",
-                        parse_mode="markdown"
+                        parse_mode="Markdown"
                     )
                 del self.active_votes[gid]
+
+# -- Callback query handler --
 
 @app.on_callback_query()
 async def vote_callback(client, callback_query):
@@ -207,14 +205,18 @@ async def vote_callback(client, callback_query):
             vote["no"].add(user_id)
             await callback_query.answer("Hayır oyunu kullandınız.")
 
+# -- Scheduler --
+
 siir_oylama = SiirOylama()
 
 async def scheduler():
     while True:
         await siir_oylama.start_vote()
-        await asyncio.sleep(6 * 3600)
+        await asyncio.sleep(6 * 3600)  # 6 saatte bir çalışır
 
 asyncio.get_event_loop().create_task(scheduler())
+
+# -- Botu çalıştır --
 
 if __name__ == "__main__":
     app.run()
