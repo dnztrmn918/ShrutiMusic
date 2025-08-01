@@ -3,9 +3,9 @@ import json
 import os
 import asyncio
 from datetime import datetime, timedelta
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from ShrutiMusic import app  # Mevcut Pyrogram Client örneğiniz
+from ShrutiMusic import app  # Mevcut Pyrogram Client örneğin
 
 SIIR_JSON = os.path.join(os.path.dirname(__file__), "siirler.json")
 SUDO_JSON = os.path.join(os.path.dirname(__file__), "sudo_users.json")
@@ -112,12 +112,12 @@ async def siir_gonder(client: Client, message: Message):
     siir_yazar = secilen.get("author", "Anonim")
 
     text = f"{siir_metni}\n\n—\n✍️ {siir_yazar}{siir_footer()}"
-    await message.reply(text, parse_mode="Markdown")  # Düzeltildi!
+    await message.reply(text, parse_mode=enums.ParseMode.MARKDOWN)
 
 class SiirOylama:
     def __init__(self):
         self.active_votes = {}
-        self.vote_duration = timedelta(hours=6)
+        self.vote_duration = timedelta(hours=24)  # 24 saat
 
     async def start_vote(self):
         siirler = load_siirler()
@@ -128,7 +128,16 @@ class SiirOylama:
         siir_text = siir["text"]
         siir_author = siir.get("author", "Anonim")
 
-        yetkili_gruplar = []  # Oylama yapılacak grup ID'lerini buraya ekleyin
+        # Bot'un yetkili olduğu grupların ID'lerini al
+        yetkili_gruplar = []
+        for dialog in await app.get_dialogs():
+            if dialog.chat.type in ("group", "supergroup"):
+                try:
+                    member = await app.get_chat_member(dialog.chat.id, app.me.id)
+                    if member.status in ("administrator", "creator"):
+                        yetkili_gruplar.append(dialog.chat.id)
+                except:
+                    continue
 
         for gid in yetkili_gruplar:
             end_time = datetime.now() + self.vote_duration
@@ -150,9 +159,9 @@ class SiirOylama:
 
             await app.send_message(
                 gid,
-                f"📜 Yeni şiir oylaması!\n\n{siir_text}\n\n—\n✍️ {siir_author}{siir_footer()}\n\nBu şiiri beğeniyor musunuz?",
+                f"📜 Günün Şiiri:\n\n{siir_text}\n\n—\n✍️ {siir_author}{siir_footer()}\n\nBeğendiniz mi?",
                 reply_markup=keyboard,
-                parse_mode="Markdown"
+                parse_mode=enums.ParseMode.MARKDOWN
             )
 
     async def check_votes(self):
@@ -170,7 +179,7 @@ class SiirOylama:
                     await app.send_message(
                         KANAL_USERNAME,
                         f"🎉 Yeni onaylı şiir:\n\n{siir_text}\n\n—\n✍️ {siir_author}{siir_footer()}",
-                        parse_mode="Markdown"
+                        parse_mode=enums.ParseMode.MARKDOWN
                     )
                 del self.active_votes[gid]
 
@@ -202,7 +211,7 @@ siir_oylama = SiirOylama()
 async def scheduler():
     while True:
         await siir_oylama.start_vote()
-        await asyncio.sleep(6 * 3600)  # 6 saatte bir çalışır
+        await asyncio.sleep(24 * 3600)  # 24 saatte bir
 
 asyncio.get_event_loop().create_task(scheduler())
 
