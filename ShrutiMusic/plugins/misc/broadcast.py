@@ -42,91 +42,89 @@ from config import adminlist
 # Add specific user IDs that can use the broadcast command
 BROADCAST_ALLOWED_IDS = [6289700114, 7426116391]
 
-IS_BROADCASTING = True
+IS_BROADCASTING = False
 
 
-@app.on_message(filters.command("broadcast", "reklam") & (filters.user(BROADCAST_ALLOWED_IDS) | SUDOERS))
+@app.on_message(filters.command(["broadcast", "reklam"]) & (filters.user(BROADCAST_ALLOWED_IDS) | SUDOERS))
 @language
-async def braodcast_message(client, message, _):
+async def broadcast_message(client, message, _):
     global IS_BROADCASTING
+
+    # Komut tetikleniyor mu kontrol için test mesajı
+    await message.reply_text("Broadcast komutu çalıştı!")
+
+    if IS_BROADCASTING:
+        return await message.reply_text("Bir broadcast işlemi zaten devam ediyor, lütfen bekleyin.")
 
     if "-wfchat" in message.text or "-wfuser" in message.text:
         if not message.reply_to_message or not (message.reply_to_message.photo or message.reply_to_message.text):
-            return await message.reply_text("Please reply to a text or image message for broadcasting.")
+            return await message.reply_text("Lütfen yayınlamak istediğiniz metin veya fotoğrafa yanıt verin.")
 
-        # Extract data from the replied message
         if message.reply_to_message.photo:
             content_type = 'photo'
             file_id = message.reply_to_message.photo.file_id
         else:
             content_type = 'text'
             text_content = message.reply_to_message.text
-            
+
         caption = message.reply_to_message.caption
-        reply_markup = message.reply_to_message.reply_markup if hasattr(message.reply_to_message, 'reply_markup') else None
+        reply_markup = getattr(message.reply_to_message, 'reply_markup', None)
 
         IS_BROADCASTING = True
         await message.reply_text(_["broad_1"])
 
         if "-wfchat" in message.text:
-            # Broadcasting to chats
             sent_chats = 0
             chats = [int(chat["chat_id"]) for chat in await get_served_chats()]
-            for i in chats:
+            for chat_id in chats:
                 try:
                     if content_type == 'photo':
-                        await app.send_photo(chat_id=i, photo=file_id, caption=caption, reply_markup=reply_markup)
+                        await app.send_photo(chat_id=chat_id, photo=file_id, caption=caption, reply_markup=reply_markup)
                     else:
-                        await app.send_message(chat_id=i, text=text_content, reply_markup=reply_markup)
+                        await app.send_message(chat_id=chat_id, text=text_content, reply_markup=reply_markup)
                     sent_chats += 1
                     await asyncio.sleep(0.2)
                 except FloodWait as fw:
                     await asyncio.sleep(fw.x)
-                except:
+                except Exception as e:
+                    # Hata varsa yazdırabiliriz, geliştirme için
+                    print(f"Broadcast chat gönderim hatası: {e}")
                     continue
-            await message.reply_text(f"Broadcast to chats completed! Sent to {sent_chats} chats.")
+            await message.reply_text(f"Chatlere yayın tamamlandı! Toplam gönderilen: {sent_chats}.")
 
         if "-wfuser" in message.text:
-            # Broadcasting to users
             sent_users = 0
             users = [int(user["user_id"]) for user in await get_served_users()]
-            for i in users:
+            for user_id in users:
                 try:
                     if content_type == 'photo':
-                        await app.send_photo(chat_id=i, photo=file_id, caption=caption, reply_markup=reply_markup)
+                        await app.send_photo(chat_id=user_id, photo=file_id, caption=caption, reply_markup=reply_markup)
                     else:
-                        await app.send_message(chat_id=i, text=text_content, reply_markup=reply_markup)
+                        await app.send_message(chat_id=user_id, text=text_content, reply_markup=reply_markup)
                     sent_users += 1
                     await asyncio.sleep(0.2)
                 except FloodWait as fw:
                     await asyncio.sleep(fw.x)
-                except:
+                except Exception as e:
+                    print(f"Broadcast kullanıcı gönderim hatası: {e}")
                     continue
-            await message.reply_text(f"Broadcast to users completed! Sent to {sent_users} users.")
+            await message.reply_text(f"Kullanıcılara yayın tamamlandı! Toplam gönderilen: {sent_users}.")
 
         IS_BROADCASTING = False
         return
 
-    
+    # Eğer yanıt yoksa mesajdan metin alma kısmı
     if message.reply_to_message:
-        x = message.reply_to_message.id
-        y = message.chat.id
-        reply_markup = message.reply_to_message.reply_markup if message.reply_to_message.reply_markup else None
-        content = None
+        message_id = message.reply_to_message.id
+        chat_id = message.chat.id
+        reply_markup = getattr(message.reply_to_message, 'reply_markup', None)
     else:
         if len(message.command) < 2:
             return await message.reply_text(_["broad_2"])
         query = message.text.split(None, 1)[1]
-        if "-pin" in query:
-            query = query.replace("-pin", "")
-        if "-nobot" in query:
-            query = query.replace("-nobot", "")
-        if "-pinloud" in query:
-            query = query.replace("-pinloud", "")
-        if "-assistant" in query:
-            query = query.replace("-assistant", "")
-        if "-user" in query:
-            query = query.replace("-user", "")
+        for flag in ["-pin", "-nobot", "-pinloud", "-assistant", "-user"]:
+            query = query.replace(flag, "")
+        query = query.strip()
         if query == "":
             return await message.reply_text(_["broad_8"])
 
@@ -136,29 +134,27 @@ async def braodcast_message(client, message, _):
     if "-nobot" not in message.text:
         sent = 0
         pin = 0
-        chats = []
-        schats = await get_served_chats()
-        for chat in schats:
-            chats.append(int(chat["chat_id"]))
-        for i in chats:
+        chats = [int(chat["chat_id"]) for chat in await get_served_chats()]
+        for chat_id in chats:
             try:
-                m = (
-                    await app.copy_message(chat_id=i, from_chat_id=y, message_id=x, reply_markup=reply_markup)
-                    if message.reply_to_message
-                    else await app.send_message(i, text=query)
-                )
+                if message.reply_to_message:
+                    m = await app.copy_message(chat_id=chat_id, from_chat_id=chat_id, message_id=message_id, reply_markup=reply_markup)
+                else:
+                    m = await app.send_message(chat_id, text=query)
+
                 if "-pin" in message.text:
                     try:
                         await m.pin(disable_notification=True)
                         pin += 1
                     except:
-                        continue
+                        pass
                 elif "-pinloud" in message.text:
                     try:
                         await m.pin(disable_notification=False)
                         pin += 1
                     except:
-                        continue
+                        pass
+
                 sent += 1
                 await asyncio.sleep(0.2)
             except FloodWait as fw:
@@ -166,7 +162,8 @@ async def braodcast_message(client, message, _):
                 if flood_time > 200:
                     continue
                 await asyncio.sleep(flood_time)
-            except:
+            except Exception as e:
+                print(f"Broadcast gönderim hatası: {e}")
                 continue
         try:
             await message.reply_text(_["broad_3"].format(sent, pin))
@@ -175,17 +172,13 @@ async def braodcast_message(client, message, _):
 
     if "-user" in message.text:
         susr = 0
-        served_users = []
-        susers = await get_served_users()
-        for user in susers:
-            served_users.append(int(user["user_id"]))
-        for i in served_users:
+        served_users = [int(user["user_id"]) for user in await get_served_users()]
+        for user_id in served_users:
             try:
-                m = (
-                    await app.copy_message(chat_id=i, from_chat_id=y, message_id=x, reply_markup=reply_markup)
-                    if message.reply_to_message
-                    else await app.send_message(i, text=query)
-                )
+                if message.reply_to_message:
+                    await app.copy_message(chat_id=user_id, from_chat_id=chat_id, message_id=message_id, reply_markup=reply_markup)
+                else:
+                    await app.send_message(user_id, text=query)
                 susr += 1
                 await asyncio.sleep(0.2)
             except FloodWait as fw:
@@ -193,8 +186,9 @@ async def braodcast_message(client, message, _):
                 if flood_time > 200:
                     continue
                 await asyncio.sleep(flood_time)
-            except:
-                pass
+            except Exception as e:
+                print(f"Broadcast kullanıcı gönderim hatası: {e}")
+                continue
         try:
             await message.reply_text(_["broad_4"].format(susr))
         except:
@@ -210,11 +204,10 @@ async def braodcast_message(client, message, _):
             client = await get_client(num)
             async for dialog in client.get_dialogs():
                 try:
-                    await client.forward_messages(
-                        dialog.chat.id, y, x
-                    ) if message.reply_to_message else await client.send_message(
-                        dialog.chat.id, text=query
-                    )
+                    if message.reply_to_message:
+                        await client.forward_messages(dialog.chat.id, chat_id, message_id)
+                    else:
+                        await client.send_message(dialog.chat.id, text=query)
                     sent += 1
                     await asyncio.sleep(3)
                 except FloodWait as fw:
@@ -222,13 +215,15 @@ async def braodcast_message(client, message, _):
                     if flood_time > 200:
                         continue
                     await asyncio.sleep(flood_time)
-                except:
+                except Exception as e:
+                    print(f"Broadcast assistant gönderim hatası: {e}")
                     continue
             text += _["broad_7"].format(num, sent)
         try:
             await aw.edit_text(text)
         except:
             pass
+
     IS_BROADCASTING = False
 
 
@@ -248,7 +243,8 @@ async def auto_clean():
                     for user in authusers:
                         user_id = await alpha_to_int(user)
                         adminlist[chat_id].append(user_id)
-        except:
+        except Exception as e:
+            print(f"auto_clean hatası: {e}")
             continue
 
 
