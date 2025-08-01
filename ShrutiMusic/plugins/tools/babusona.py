@@ -221,7 +221,7 @@ asyncio.get_event_loop().create_task(scheduler())
 if __name__ == "__main__":
     app.run()
 
-__MODULE__ = "Şiir Komutları"
+__MODULE__ = "Gᴀʟɪ"
 __HELP__ = """
 **Şiir Komutları**
 
