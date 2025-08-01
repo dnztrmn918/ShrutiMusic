@@ -1,11 +1,8 @@
-import asyncio
 import random
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
-# Burada kendi bot token'ınızı ayarlayın veya config dosyasından çekin
-# Örnek: app = Client("my_bot", bot_token="TOKENINIZ")
-app = Client("my_bot")
+from ShrutiMusic import app
+import asyncio
 
 DOKUNDURMA_MESAJLARI = [
     "Yine mi karıştın işlere, {mention}? Beyin nerede kayıp acaba? 🤔",
